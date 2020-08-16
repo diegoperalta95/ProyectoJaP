@@ -1,0 +1,31 @@
+<html>
+<head>
+   <meta name="google-signin-client_id" content="207878285034-a4b2l36mtlsr2lq2bp55qqofasdkmn3q.apps.googleusercontent.com">
+   <script src="https://apis.google.com/js/platform.js?onload=init" asyc defer></script>
+</head>
+<body>
+    <script>
+       
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut();
+            auth2.disconnect();
+        }
+        
+        function init() {
+            var userNormal = sessionStorage.getItem('Password');
+            sessionStorage.clear();
+            if(userNormal != undefined){   
+                window.location.href="index.html";
+            };
+            gapi.load('auth2', function() {
+            gapi.auth2.init().then(function (e){
+                signOut();
+                window.location.href="index.html";
+            });
+        });
+        }
+
+    </script>
+</body>
+</html>
