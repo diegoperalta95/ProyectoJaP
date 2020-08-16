@@ -2,11 +2,11 @@ function onSignIn(googleUser) {
 
   var profile = googleUser.getBasicProfile();
   //var idToken = googleUser.getAuthResponse().id_token;
-  sessionStorage.setItem('Name',profile.getName());
+  localStorage.setItem('Name',profile.getName());
 
-  if (sessionStorage.getItem('Name') != undefined || sessionStorage.getItem('Name') != null){
-    sessionStorage.setItem('Name',profile.getName());
-    sessionStorage.setItem('Email',profile.getEmail());
+  if (localStorage.getItem('Name') != undefined || sessionStorage.getItem('Name') != null){
+    localStorage.setItem('Name',profile.getName());
+    localStorage.setItem('Email',profile.getEmail());
     window.location.href="home.html";
     
   }
@@ -20,6 +20,13 @@ form.addEventListener('submit', function(e){
     e.preventDefault();
     alert("Datos no correctos");
   }
-  sessionStorage.setItem('Name',usr);
-  sessionStorage.setItem('Password',pss);
+  localStorage.setItem('Name',usr);
 })
+
+document.addEventListener("DOMContentLoaded", function (e) {
+  //Esto funciona solo en chrome, ya que firefox no mantiene localStorage ni sessionStorage entre pestañas
+  if (localStorage.getItem('Name') != undefined){
+    window.location.href = "home.html";
+  }
+});
+

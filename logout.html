@@ -13,8 +13,8 @@
         }
         
         function init() {
-            var userNormal = sessionStorage.getItem('Password');
-            sessionStorage.clear();
+            var userNormal = localStorage.getItem('Password');
+            localStorage.clear();
             if(userNormal != undefined){   
                 window.location.href="index.html";
             };
