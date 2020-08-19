@@ -5,6 +5,7 @@ var currentProductsArray = [];
 var currentSortCriteria = undefined;
 var minCount = undefined;
 var maxCount = undefined;
+var wordFilter = undefined;
 
 function sortProducts(criteria, array){
     let result = [];
@@ -41,27 +42,29 @@ function showProductsList(){
     for(let i = 0; i < currentProductsArray.length; i++){
         let product = currentProductsArray[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
+        if( (wordFilter == undefined) || (product.name.includes(wordFilter) || (product.description.includes(wordFilter))) ){
+            if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
+                ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
 
-            htmlContentToAppend += `
-            <a href="product-info.html" class="list-group-item list-group-item-action">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
-                        </div>
-                        <div class="col">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h4 class="mb-1">`+ product.name +`</h4>
-                                <small>` + product.soldCount + ` Vendidos</small>
+                htmlContentToAppend += `
+                <a href="product-info.html" class="list-group-item list-group-item-action">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
                             </div>
-                            <p class="mb-1">` + product.description + `</p>
-                            <br>
-                            <p> <b>Precio:  </b>` + product.cost  +  product.currency + `</p>
+                            <div class="col">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h4 class="mb-1">`+ product.name +`</h4>
+                                    <small>` + product.soldCount + ` Vendidos</small>
+                                </div>
+                                <p class="mb-1">` + product.description + `</p>
+                                <br>
+                                <p> <b>Precio:  </b>` + product.cost  +  product.currency + `</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                `
+                    </a>
+                    `
+            }
         }
 
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
@@ -129,6 +132,13 @@ document.addEventListener("DOMContentLoaded", function(e){
 
         showProductsList();
     });
+
+    document.getElementById("searchBar").addEventListener("keyup", function(){
+        wordFilter = document.getElementById("searchBar").value;
+
+        showProductsList();
+    })
+
 });
                 
                 
