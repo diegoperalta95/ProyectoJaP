@@ -42,7 +42,15 @@ function showProductsList(){
     for(let i = 0; i < currentProductsArray.length; i++){
         let product = currentProductsArray[i];
 
-        if( (wordFilter == undefined) || (product.name.includes(wordFilter) || (product.description.includes(wordFilter))) ){
+        let name = product.name.toUpperCase();
+        let desc = product.description.toUpperCase();
+        
+        if (wordFilter != undefined){
+            wordFilter = wordFilter.toUpperCase();
+        }
+
+        if( (wordFilter == undefined) || (name.includes(wordFilter)) || (desc.includes(wordFilter))){
+            
             if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
                 ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
 
