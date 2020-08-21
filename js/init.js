@@ -41,11 +41,10 @@ var getJSONData = function(url){
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
-  if (window.location.pathname != "/" && window.location.pathname != "/index.html"){
-    
-    let userLogged = localStorage.getItem("Name");
-    let infouser = document.getElementById("menuUser");
-  
+  if (window.location.pathname != "/" && window.location.pathname != "/index.html"){  
+    var userLogged = localStorage.getItem("Name");
+    var infouser = document.getElementById("menuUser");
+
     if(userLogged){
       infouser.innerHTML += ' '+userLogged + ' !';
       document.getElementById("register").remove();
@@ -56,5 +55,7 @@ document.addEventListener("DOMContentLoaded", function(e){
       
     };
   }
+
+ 
     
 });

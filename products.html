@@ -23,7 +23,7 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="home.html">Inicio <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="home.html">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="categories.html">Categorias</a>
@@ -39,8 +39,8 @@
           </li>
         </ul>
       </div>
-        <li class="dropdown float-right" style="list-style:none">
-          <a id="menuUser" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="dropdown float-right" id="dropdownUser" style="list-style:none">
+        <a id="menuUser" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Bienvenido
           </a>
           <div id="profileMenu" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -65,8 +65,14 @@
                         <label class="btn btn-light" id="sortDesc" >
                             <input type="radio" name="options" autocomplete="off">Z-A
                         </label>
-                        <label class="btn btn-light" id="sortByCost" >
+                        <label class="btn btn-light" id="sortByCostDesc" >
                             <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Precio
+                        </label>
+                        <label class="btn btn-light" id="sortByCostAsc" >
+                          <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-up mr-1"></i>Precio
+                        </label>
+                        <label class="btn btn-light" id="sortRel" >
+                          <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Relevancia
                         </label>
                     </div>
                 </div>

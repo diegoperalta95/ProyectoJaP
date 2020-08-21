@@ -1,6 +1,8 @@
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COST = "Precio";
+const ORDER_DESC_BY_PROD_COST = "DescPrecio";
+const ORDER_ASC_BY_PROD_COST = "AscPrecio";
+const ORDER_DESC_BY_REL = "DescRel";
 var currentProductsArray = [];
 var currentSortCriteria = undefined;
 var minCount = undefined;
@@ -22,13 +24,31 @@ function sortProducts(criteria, array){
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_PROD_COST){
+    }else if (criteria === ORDER_DESC_BY_PROD_COST){
         result = array.sort(function(a, b) {
             let aCost = parseInt(a.cost);
             let bCost = parseInt(b.cost);
 
             if ( aCost > bCost ){ return -1; }
             if ( aCost < bCost ){ return 1; }
+            return 0;
+        });
+    }else if (criteria === ORDER_ASC_BY_PROD_COST){
+        result = array.sort(function(a, b) {
+            let aCost = parseInt(a.cost);
+            let bCost = parseInt(b.cost);
+
+            if ( aCost < bCost ){ return -1; }
+            if ( aCost > bCost ){ return 1; }
+            return 0;
+        });
+    }else if (criteria === ORDER_DESC_BY_REL){
+        result = array.sort(function(a, b) {
+            let aSold = parseInt(a.soldCount);
+            let bSold = parseInt(b.soldCount);
+
+            if ( aSold > bSold ){ return -1; }
+            if ( aSold < bSold ){ return 1; }
             return 0;
         });
     }
@@ -106,8 +126,16 @@ document.addEventListener("DOMContentLoaded", function(e){
         sortAndShowProducts(ORDER_DESC_BY_NAME);
     });
 
-    document.getElementById("sortByCost").addEventListener("click", function(){
-        sortAndShowProducts(ORDER_BY_PROD_COST);
+    document.getElementById("sortByCostDesc").addEventListener("click", function(){
+        sortAndShowProducts(ORDER_DESC_BY_PROD_COST);
+    });
+
+    document.getElementById("sortByCostAsc").addEventListener("click", function(){
+        sortAndShowProducts(ORDER_ASC_BY_PROD_COST);
+    });
+
+    document.getElementById("sortRel").addEventListener("click", function(){
+        sortAndShowProducts(ORDER_DESC_BY_REL);
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function(){

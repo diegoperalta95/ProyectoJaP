@@ -141,7 +141,7 @@ a.custom-card:hover {
 }
 
 .navbar {
-  height: 50px;
+  height: auto;
 }
 
 .navbar-brand {
@@ -162,4 +162,8 @@ a.custom-card:hover {
 .nav-item{
   width: calc(80%/5);
   text-align: center;
+}
+
+#dropdownUser {
+  max-width: calc(100%/9);
 }
