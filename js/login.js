@@ -2,14 +2,9 @@ function onSignIn(googleUser) {
 
   var profile = googleUser.getBasicProfile();
   //var idToken = googleUser.getAuthResponse().id_token;
-  localStorage.setItem('Name',profile.getName());
-
-  if (localStorage.getItem('Name') != undefined || sessionStorage.getItem('Name') != null){
-    localStorage.setItem('Name',profile.getGivenName());
-    localStorage.setItem('Email',profile.getEmail());
-    window.location.href="home.html";
-    
-  }
+  localStorage.setItem('Name',profile.getGivenName());
+  localStorage.setItem('Email',profile.getEmail());
+  window.location.href="home.html";
 }
 
 var form = document.forms[0];
