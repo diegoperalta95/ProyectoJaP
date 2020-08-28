@@ -64,10 +64,6 @@ function showProductsList(){
 
         let name = product.name.toUpperCase();
         let desc = product.description.toUpperCase();
-        
-        if (wordFilter != undefined){
-            wordFilter = wordFilter.toUpperCase();
-        }
 
         if( (wordFilter == undefined) || (name.includes(wordFilter)) || (desc.includes(wordFilter))){
             
@@ -169,8 +165,8 @@ document.addEventListener("DOMContentLoaded", function(e){
         showProductsList();
     });
 
-    document.getElementById("searchBar").addEventListener("keyup", function(){
-        wordFilter = document.getElementById("searchBar").value;
+    document.getElementById("searchBar").addEventListener("input", function(){
+        wordFilter = document.getElementById("searchBar").value.toUpperCase();
 
         showProductsList();
     })

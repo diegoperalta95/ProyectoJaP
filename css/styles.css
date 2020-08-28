@@ -163,7 +163,3 @@ a.custom-card:hover {
   width: calc(80%/5);
   text-align: center;
 }
-
-#dropdownUser {
-  max-width: calc(100%/9);
-}
