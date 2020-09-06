@@ -58,7 +58,7 @@ function showProduct(){
         <div class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-12">
-                        <img src=${comment.user.includes("maria") || comment.user.includes("paola") ? "../img/img_avatar2.png" : "../img/img_avatar.png"} class="profile-thumnail">
+                        <img src=${comment.user.includes("maria") || comment.user.includes("paola") ? "./img/img_avatar2.png" : "./img/img_avatar.png"} class="profile-thumnail">
                         <h7 class="ml-2"> <b>${comment.user}</b></h7>     <small class="text-muted ml-2 fas fa-clock"> ${comment.dateTime}</small>              
                     </div>
                     <div class="col-12">
