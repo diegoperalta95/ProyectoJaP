@@ -87,7 +87,7 @@ function showProductsList(){
                             </div>
                         </div>
                     </a>
-                    `
+                `
             }
         }
 

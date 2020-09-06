@@ -163,3 +163,9 @@ a.custom-card:hover {
   width: calc(80%/5);
   text-align: center;
 }
+
+.profile-thumnail{
+  border-radius:50%;
+  width: 60px !important;
+  height: 60px !important;
+}
