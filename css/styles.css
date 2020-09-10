@@ -169,3 +169,8 @@ a.custom-card:hover {
   width: 60px !important;
   height: 60px !important;
 }
+
+#menuUser{
+  background-color:rgb(52,58,64);
+  border-color:rgb(52,58,64);
+}

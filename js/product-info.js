@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     function sortAndShowProduct(sortCriteria){
         currentSortCriteria = sortCriteria;
-        currentProductsArray = sortComments(currentSortCriteria);
+        currentCommentsArray = sortComments(currentSortCriteria);
         showProduct();
     }
 
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         document.getElementById(element).addEventListener('click', function(){
 
         var id = document.getElementById(element).id;
-        var cls=document.getElementById(element).className;
+        var cls = document.getElementById(element).className;
 
         if(cls.includes('unchecked')){
 
@@ -162,19 +162,21 @@ document.addEventListener("DOMContentLoaded", function(e){
     document.getElementById('comentar').addEventListener('click', function(){
 
         if(localStorage.getItem("Name")){
-            let current_datetime = new Date()
-            let formatted_Date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds() 
+            let now = new Date()
+            let dateTime = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
     
             var score = document.getElementById('comment-container').getElementsByClassName('checked').length;
             if(score == 0){
                 score = 1;
+            }else if(score > 5){
+                score = 5;
             }
             
             let newComment = {
                 user: localStorage.getItem('Name'),
                 score: score,
                 description: document.getElementById('comentario').value,
-                dateTime: formatted_Date
+                dateTime: dateTime
             }
             
             currentCommentsArray.push(newComment);
@@ -184,7 +186,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         }else{
             alert("Usted debe estar logueado para realizar tal acción.");
         }
-
         
     });
     
