@@ -1,11 +1,11 @@
-currentCommentsArray = [];
-currentProductArray = [];
-ORDER_DESC_BY_DATE = "date";
+CommentsArray = [];
+ProductArray = [];
+const ORDER_DESC_BY_DATE = "Date";
 
 function sortComments(criteria){
     let result = [];
     if (criteria === ORDER_DESC_BY_DATE){
-        result = currentCommentsArray.sort(function(a, b) {
+        result = CommentsArray.sort(function(a, b) {
             if ( a.dateTime < b.dateTime ){ return -1; }
             if ( a.dateTime > b.dateTime ){ return 1; }
             return 0;
@@ -16,43 +16,37 @@ function sortComments(criteria){
 
 function showProduct(){
     htmlContentToAppend = `
-    
             <div class="row">
                 <div class="col-12">
-                    <h3 class="text-center"> <b> ${currentProductArray.name}  </b></h3> 
+                    <h3 class="text-center"> <b> ${ProductArray.name}  </b></h3> 
                     <hr style="width: 30%;">
                 </div>    
-                <img class="col-3" src="${currentProductArray['images'][0]}"></img>
-                <img class="col-3" src="${currentProductArray['images'][1]}"></img>
-                <img class="col-3" src="${currentProductArray['images'][2]}"></img>
-                <img class="col-3" src="${currentProductArray['images'][3]}"></img>
+                <img class="col-3" src="${ProductArray['images'][0]}"></img>
+                <img class="col-3" src="${ProductArray['images'][1]}"></img>
+                <img class="col-3" src="${ProductArray['images'][2]}"></img>
+                <img class="col-3" src="${ProductArray['images'][3]}"></img>
                 <hr style="width: 95%;">
                 <div class="col-12">
-                    <h5>${currentProductArray.description}</h5>
+                    <h5>${ProductArray.description}</h5>
                 </div>
                 <hr style="width: 95%;">
                 <div style="align-items:center" class="d-flex justify-content-center flex-column text-center col-12 ">
-                    <h5>Precio: <b>${currentProductArray.cost} ${currentProductArray.currency}</b></h5>
-                    <h5>${currentProductArray.soldCount} Ya vendidos! </h5>
+                    <h5>Precio: <b>${ProductArray.cost} ${ProductArray.currency}</b></h5>
+                    <h5>${ProductArray.soldCount} Ya vendidos! </h5>
                     <div><button class="btn btn-lg btn-primary btn-block">Comprar</button></div>
                 </div>
                 <hr style="width: 95%;">
-                <h4>Comentarios</h4>
-                <br>
-                <div class="col-12" id="comentarios-container">
-                </div>
-                
-            </div>
-            
+                <br>                
+            </div>     
         </a>
     `
-
     document.getElementById("product-list").innerHTML = htmlContentToAppend;
+}
 
-    htmlContentToAppend = "";
 
-    for(let i = 0; i < currentCommentsArray.length; i++){
-        let comment = currentCommentsArray[i];
+function showComments(){htmlContentToAppend = "";
+    for(let i = 0; i < CommentsArray.length; i++){
+        let comment = CommentsArray[i];
 
         htmlContentToAppend += `
         <div class="list-group-item list-group-item-action">
@@ -73,7 +67,6 @@ function showProduct(){
             htmlContentToAppend += `<span class="fa fa-star"></span>`;
         }
 
-
         htmlContentToAppend += 
         `
                         </div>
@@ -81,11 +74,7 @@ function showProduct(){
                 </div>
         </div>
         `
-        
-        
-        document.getElementById("comentarios-container").innerHTML = htmlContentToAppend;
-
-    }
+    document.getElementById("comments-container").innerHTML = htmlContentToAppend;}
 }
 
 function limpiarCampos(){
@@ -98,37 +87,56 @@ function limpiarCampos(){
     document.getElementById('comentario').value = ""; 
 }
 
+function showCommentBox(){
+    document.getElementById("comment-container").innerHTML = `
+    <div class="list-group-item ">
+          <div class="row">
+              <h2>Cuéntanos tu experiencia!</h2>
+              <textarea type="text" id="comentario" class="form-control" placeholder="Comentanos que te parece este vehículo..." required autofocus></textarea>
+              <hr style="width: 95%;">
+              <div class="col-12 justify-content-around align-items-center">
+                <fieldset style="float:left">
+                  <legend>Puntua!</legend>
+                  <span class="fa fa-star unchecked" id="1"></span>
+                  <span class="fa fa-star unchecked" id="2"></span>
+                  <span class="fa fa-star unchecked" id="3"></span>
+                  <span class="fa fa-star unchecked" id="4"></span>
+                  <span class="fa fa-star unchecked" id="5"></span>
+                </fieldset>
+              <div style="float:right" class="align-items-center"><button class="btn btn-lg btn-primary btn-block" id="comentar">Comentar</button></div> 
+              </div>
+          </div>
+        </div>
+    `
+    document.getElementById("comment-container").style="display:block";
+}
+
 document.addEventListener("DOMContentLoaded", function(e){
+
+    if(localStorage.getItem("Name")){
+        showCommentBox(); 
+    };
 
     getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
-            currentCommentsArray = resultObj.data;
+            CommentsArray = resultObj.data;
+            sortAndShowComments(ORDER_DESC_BY_DATE);
         }
     });
 
     getJSONData(PRODUCT_INFO_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
-            currentProductArray = resultObj.data;
-            sortAndShowProduct(ORDER_DESC_BY_DATE);
+            ProductArray = resultObj.data;
+            showProduct();
         }
     });
 
-
-
-    function sortAndShowProduct(sortCriteria){
-        currentSortCriteria = sortCriteria;
-        currentCommentsArray = sortComments(currentSortCriteria);
-        showProduct();
+    function sortAndShowComments(sortCriteria){
+        CommentsArray = sortComments(sortCriteria);
+        showComments();
     }
 
-
-
-    if(localStorage.getItem("Name")){
-        document.getElementById("comment-container").style="display:inline";
-    };
-
-
-
+    //visualización del sistema de puntuación
     var list=['1','2','3','4','5'];
     list.forEach(function(element) {
         document.getElementById(element).addEventListener('click', function(){
@@ -158,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         });
     });
     
-
+    //mandar comentario y chequear que esté logueado.
     document.getElementById('comentar').addEventListener('click', function(){
 
         if(localStorage.getItem("Name")){
@@ -179,8 +187,8 @@ document.addEventListener("DOMContentLoaded", function(e){
                 dateTime: dateTime
             }
             
-            currentCommentsArray.push(newComment);
-            showProduct();
+            CommentsArray.push(newComment);
+            showComments();
             limpiarCampos();
     
         }else{

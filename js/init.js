@@ -40,22 +40,8 @@ var getJSONData = function(url){
     });
 }
 
-document.addEventListener("DOMContentLoaded", function(e){
-  if (window.location.pathname != "/" && window.location.pathname != "/index.html" && window.location.pathname != "/ProyectoJaP/" && window.location.pathname != "/ProyectoJaP/index.html"){  
-    var userLogged = localStorage.getItem("Name");
-    var infouser = document.getElementById("menuUser");
-    
-    if(userLogged){
-      infouser.innerHTML += ' '+userLogged + '!';
-      document.getElementById("register").remove();
-    }else{
-      infouser.innerHTML += ' Invitado!';
-      document.getElementById("profileLink").remove();
-      document.getElementById("logoutLink").remove();
-      
-    };
-  }
 
- 
+
+document.addEventListener("DOMContentLoaded", function(e){ 
     
 });
