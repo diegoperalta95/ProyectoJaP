@@ -175,3 +175,27 @@ a.custom-card:hover {
   background-color:rgb(52,58,64);
   border-color:rgb(52,58,64);
 }
+
+/*Sistema de puntuación*/
+.rating{
+  direction: rtl;
+  display: inline-block;
+}
+
+.rating input[type=radio]{
+  display: none;
+}
+
+.rating label {
+  cursor: pointer;
+}
+
+.rating label:hover,
+.rating label:hover~label,
+.rating input[type=radio]:checked~label {
+  color: #ffbf00;
+}
+
+
+
+

@@ -73,7 +73,8 @@ function showProduct(){
 }
 
 
-function showComments(){htmlContentToAppend = "";
+function showComments(){
+    htmlContentToAppend = "";
     for(let i = 0; i < CommentsArray.length; i++){
         let comment = CommentsArray[i];
 
@@ -90,10 +91,10 @@ function showComments(){htmlContentToAppend = "";
         `
         for (let i = 1; i <= comment.score ;i++){
             htmlContentToAppend += `<span class="fa fa-star checked"></span>`;
-        }
+        };
 
-        for (let i = comment.score +1; i <= 5 ;i++){
-            htmlContentToAppend += `<span class="fa fa-star"></span>`;
+        for (let i = comment.score + 1; i <= 5 ;i++){
+            htmlContentToAppend += `<span class="fa fa-star unchecked"></span>`;
         }
 
         htmlContentToAppend += 
@@ -108,10 +109,7 @@ function showComments(){htmlContentToAppend = "";
 
 function limpiarCampos(){
     if(localStorage.getItem('Name')){
-        for (i=1;i<=5;i++){
-            document.getElementById(i).classList.remove('checked'); 
-            document.getElementById(i).classList.add('unchecked'); 
-        }
+        $('input[name=rating]').prop('checked',false)
     }
     document.getElementById('comentario').value = ""; 
 }
@@ -120,21 +118,18 @@ function showCommentBox(){
     document.getElementById("comment-container").innerHTML = `
     <div class="list-group-item ">
           <div class="row">
-              <h2>Cuéntanos tu experiencia!</h2>
+          <h2>Cuéntanos tu experiencia!</h2>
               <textarea type="text" id="comentario" class="form-control" placeholder="Comentanos que te parece este vehículo..." required autofocus></textarea>
               <hr style="width: 95%;">
-              <div class="col-12 justify-content-around align-items-center">
-                <fieldset style="float:left">
-                  <legend>Puntua!</legend>
-                  <span class="fa fa-star unchecked" id="1"></span>
-                  <span class="fa fa-star unchecked" id="2"></span>
-                  <span class="fa fa-star unchecked" id="3"></span>
-                  <span class="fa fa-star unchecked" id="4"></span>
-                  <span class="fa fa-star unchecked" id="5"></span>
+              <div class="col-12 d-flex justify-content-between align-items-center">
+              <div id="rating">
+                <fieldset class="rating" style="float:left">
+                  <legend>!Puntua</legend>
+                  <input type="radio" id="5" name="rating"/><label class="fa fa-star" for="5"></label><input type="radio" id="4" name="rating"/><label class="fa fa-star" for="4"></label><input type="radio" id="3" name="rating"/><label class="fa fa-star" for="3"></label><input type="radio" id="2" name="rating"/><label class="fa fa-star" for="2"></label><input type="radio" id="1" name="rating"/><label class="fa fa-star" for="1"></label>
                 </fieldset>
-              <div style="float:right" class="align-items-center"><button class="btn btn-lg btn-primary btn-block" id="comentar">Comentar</button></div> 
               </div>
-          </div>
+              <div><button class="btn btn-lg btn-primary btn-block" id="comentar">Comentar</button></div> 
+            </div>
         </div>
     `
     document.getElementById("comment-container").style="display:block";
@@ -165,47 +160,26 @@ document.addEventListener("DOMContentLoaded", function(e){
         showComments();
     }
 
-    //visualización del sistema de puntuación
-    var list=['1','2','3','4','5'];
-    list.forEach(function(element) {
-        document.getElementById(element).addEventListener('click', function(){
-
-        var id = document.getElementById(element).id;
-        var cls = document.getElementById(element).className;
-
-        if(cls.includes('unchecked')){
-
-            document.getElementById(element).classList.remove('unchecked');
-            document.getElementById(element).classList.add('checked');
-
-            for (i = 1;i<=id;i++){
-                document.getElementById(i).classList.remove('unchecked');
-                document.getElementById(i).classList.add('checked');
-            }
-        }else{
-
-            document.getElementById(element).classList.remove('checked'); 
-            document.getElementById(element).classList.add('unchecked');
-
-            for (i = 5;i>=id;i--){
-                document.getElementById(i).classList.remove('checked');
-                document.getElementById(i).classList.add('unchecked');
-            }
-        }
-        });
-    });
-    
-    //mandar comentario y chequear que esté logueado.
     document.getElementById('comentar').addEventListener('click', function(){
-
+        
+        if(!document.getElementById('comentario').value){
+            alert("Debe llenar los campos para publicar el comentario");
+            return false;
+        }
+        
         if(localStorage.getItem("Name")){
             let now = new Date()
             let dateTime = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+
+
+            if(!$("#rating :radio:checked")[0]){
+                alert("Debe puntuar");
+                return false;
+            }
     
-            var score = document.getElementById('comment-container').getElementsByClassName('checked').length;
-            if(score == 0){
-                score = 1;
-            }else if(score > 5){
+            var score = parseInt($("#rating :radio:checked")[0].id);
+
+            if(score > 5){
                 score = 5;
             }
             
@@ -223,6 +197,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         }else{
             alert("Usted debe estar logueado para realizar tal acción.");
         }
+        
         
     });
     
