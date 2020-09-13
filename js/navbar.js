@@ -51,7 +51,7 @@ function showNavBar(){
     }
 
     if(userLogged){
-      infouser.innerHTML += userLogged;
+      infouser.innerHTML += 'Bienvenido ' + userLogged;
       document.getElementById("register").remove();
     }else{
       infouser.innerHTML += 'Invitado';
