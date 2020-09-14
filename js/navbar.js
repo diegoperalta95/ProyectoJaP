@@ -50,8 +50,7 @@ function showNavBar(){
       if(userLogged.length>11){
         userLogged = userLogged.slice(0,11) + `...`;
       }
-    }
-    
+    } 
 
     if(userLogged){
       infouser.innerHTML += 'Bienvenido ' + userLogged;
