@@ -46,15 +46,18 @@ function showNavBar(){
     var userLogged = localStorage.getItem("Name");
     var infouser = document.getElementById("menuUser");
     
-    if(userLogged.length>11){
-      userLogged = userLogged.slice(0,11) + `...`;
+    if(userLogged){
+      if(userLogged.length>11){
+        userLogged = userLogged.slice(0,11) + `...`;
+      }
     }
+    
 
     if(userLogged){
       infouser.innerHTML += 'Bienvenido ' + userLogged;
       document.getElementById("register").remove();
     }else{
-      infouser.innerHTML += 'Invitado';
+      infouser.innerHTML += 'Bienvenido Invitado';
       document.getElementById("profileLink").remove();
       document.getElementById("logoutLink").remove();    
     };

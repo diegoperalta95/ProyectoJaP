@@ -14,12 +14,36 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+  <style media="screen">
+    .carousel-cell {
+      width: 100%;
+      height: 720px;
+      background: #777;
+      position: relative;
+    }
+    .carousel-cell .container {
+      height: 100%;
+    }
+    </style>
 </head>
 
 <body>
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top site-header py-1">
   </nav>
   <div class="container p-5">
+    <h1 class="w3-center text-center" id="titulo"></h1>
+    <div class="carousel" data-flickity='{ "wrapAround": true, "autoPlay": true }'>
+    <div class="carousel-cell">
+        <img class="w3-image" src="img/prod1.jpg">
+    </div>
+    <div class="carousel-cell">
+        <img class="w3-image" src="img/prod1_1.jpg">
+    </div>
+    <div class="carousel-cell">
+        <img class="w3-image" src="img/prod1_2.jpg">
+    </div>
+    </div>
     <div class="row">
       <div class="list-group" id="product"></div>
       <div class="col-12">
@@ -27,7 +51,6 @@
         <div class="col-12" id="comments-container"></div>
         <div class="col-12 mt-4" id="comment-container" style="display:none"></div>
       </div> 
-      
   </div>
   </div>
   <footer class="text-muted">
@@ -52,6 +75,7 @@
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
   <script src="js/navbar.js"></script>
+  <script src="js/flickity.pkgd.min.js"></script>
 </body>
 
 </html>
