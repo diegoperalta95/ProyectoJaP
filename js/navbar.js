@@ -26,9 +26,6 @@ function showNavBar(){
           <li class="nav-item ${(actualPath('/sell.html')) ? 'active' : ''}">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item ${(actualPath('/cart.html')) ? 'active' : ''}">
-            <a class="nav-link" href="cart.html">Carrito</a>
-          </li>
         </ul>
         <ul class="mb-0">
           <li class="dropdown float-right" id="dropdownUser" style="list-style:none">
@@ -37,6 +34,7 @@ function showNavBar(){
               <div id="profileMenu" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" id="register" href="index.html">Registrate!</a>
                 <a class="dropdown-item" id="profileLink" href="my-profile.html">Perfil</a>
+                <a class="dropdown-item" id="cart" href="cart.html">Mi carrito</a>
                 <a class="dropdown-item" id="logoutLink" href="logout.html">Logout</a>
               </div>
           </li>
@@ -57,6 +55,7 @@ function showNavBar(){
       document.getElementById("register").remove();
     }else{
       infouser.innerHTML += 'Bienvenido Invitado';
+      document.getElementById("cart").remove();
       document.getElementById("profileLink").remove();
       document.getElementById("logoutLink").remove();    
     };

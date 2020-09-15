@@ -1,5 +1,7 @@
 CommentsArray = [];
 ProductArray = [];
+ProductsArray = [];
+RelatedProductArray = [];
 const ORDER_DESC_BY_DATE = "Date";
 
 function sortComments(criteria){
@@ -38,6 +40,8 @@ function showProduct(){
     document.getElementById("c3").src = ProductArray['images'][2];
     document.getElementById("titulo").innerHTML = ProductArray.name;
     document.getElementById("product").innerHTML = htmlContentToAppend;
+
+    showRelatedProducts()
 }
 
 function showComments(){
@@ -71,7 +75,8 @@ function showComments(){
                 </div>
         </div>
         `
-    document.getElementById("comments-container").innerHTML = htmlContentToAppend;}
+    document.getElementById("comments-container").innerHTML = htmlContentToAppend;
+    }
 }
 
 function limpiarCampos(){
@@ -84,7 +89,7 @@ function limpiarCampos(){
 function showCommentBox(){
     document.getElementById("comment-container").innerHTML = `
     <div class="list-group-item ">
-          <div class="row">
+        <div class="row">
           <h2>Cuéntanos tu experiencia!</h2>
               <textarea type="text" id="comentario" class="form-control" placeholder="Comentanos que te parece este vehículo..." required autofocus></textarea>
               <hr style="width: 95%;">
@@ -96,17 +101,35 @@ function showCommentBox(){
                 </fieldset>
               </div>
               <div><button class="btn btn-lg btn-primary btn-block" id="comentar">Comentar</button></div> 
-            </div>
         </div>
+    </div>
     `
     document.getElementById("comment-container").style="display:block";
 }
 
-document.addEventListener("DOMContentLoaded", function(e){
+function showRelatedProducts(){
+    getJSONData(PRODUCTS_URL).then(function(resultObj){
+        if (resultObj.status === "ok"){
+            ProductsArray = resultObj.data;
+            ProductArray.relatedProducts.forEach(function(id) {
+                document.getElementById("related-products").innerHTML += `
+                <a href="product-info.html" class="d-flex list-group-item justify-content-center list-group-item-action">
+                    <div class="col-3">
+                        <img src="${ProductsArray[id].imgSrc}" alt="${ProductsArray[id].description}" class="img-thumbnail">  
+                    </div>  
+                    <div>
+                    <h4 class="mb-1 text-center">${ProductsArray[id].name}</h4>
+                        <p class="text-center">${ProductsArray[id].cost}${ProductsArray[id].currency}</p>
+                    </div>
+                </a>
+                `
+            });
+            
+        }
+    });
+}
 
-    if(localStorage.getItem("Name")){
-        showCommentBox(); 
-    };
+document.addEventListener("DOMContentLoaded", function(e){
 
     getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
@@ -127,45 +150,47 @@ document.addEventListener("DOMContentLoaded", function(e){
         showComments();
     }
 
-    document.getElementById('comentar').addEventListener('click', function(){
-        
-        if(!document.getElementById('comentario').value){
-            alert("Debe llenar los campos para publicar el comentario");
-            return false;
-        }
-        
-        if(localStorage.getItem("Name")){
-            let now = new Date()
-            let dateTime = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+    if(localStorage.getItem("Name")){
+        showCommentBox();
 
-
-            if(!$("#rating :radio:checked")[0]){
-                alert("Debe puntuar");
+        document.getElementById('comentar').addEventListener('click', function(){
+        
+            if(!document.getElementById('comentario').value){
+                alert("Debe llenar los campos para publicar el comentario");
                 return false;
             }
-    
-            var score = parseInt($("#rating :radio:checked")[0].id);
-
-            if(score > 5){
-                score = 5;
-            }
             
-            let newComment = {
-                user: localStorage.getItem('Name'),
-                score: score,
-                description: document.getElementById('comentario').value,
-                dateTime: dateTime
-            }
-            
-            CommentsArray.push(newComment);
-            showComments();
-            limpiarCampos();
+            if(localStorage.getItem("Name")){
+                let now = new Date()
+                let dateTime = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
     
-        }else{
-            alert("Usted debe estar logueado para realizar tal acción.");
-        }
+    
+                if(!$("#rating :radio:checked")[0]){
+                    alert("Debe puntuar");
+                    return false;
+                }
         
+                var score = parseInt($("#rating :radio:checked")[0].id);
+    
+                if(score > 5){
+                    score = 5;
+                }
+                
+                let newComment = {
+                    user: localStorage.getItem('Name'),
+                    score: score,
+                    description: document.getElementById('comentario').value,
+                    dateTime: dateTime
+                }
+                
+                CommentsArray.push(newComment);
+                showComments();
+                limpiarCampos();
         
-    });
+            }else{
+                alert("Usted debe estar logueado para realizar tal acción.");
+            } 
+        });
+    };
     
 });
