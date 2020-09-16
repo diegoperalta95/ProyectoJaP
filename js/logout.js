@@ -5,11 +5,7 @@ function signOut() {
 }
 
 function init() {
-    var userNormal = localStorage.getItem('Password');
     localStorage.clear();
-    if(userNormal != undefined){   
-        window.location.href="index.html";
-    };
     gapi.load('auth2', function() {
     gapi.auth2.init().then(function (e){
         signOut();
