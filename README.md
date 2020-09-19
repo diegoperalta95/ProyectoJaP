@@ -1,2 +1,2 @@
 # ProyectoJaP
-Proyecto
+Proyecto de Jóvenes a programar.
