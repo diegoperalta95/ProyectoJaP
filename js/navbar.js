@@ -27,7 +27,7 @@ function showNavBar(){
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
         </ul>
-        <ul class="mb-0">
+        <ul class="mb-0 pl-0">
           <li class="dropdown float-right" id="dropdownUser" style="list-style:none">
             <button id="menuUser" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </button>
