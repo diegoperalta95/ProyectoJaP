@@ -149,6 +149,7 @@ function applyDiscount(){
     let discountPrice = parseFloat(document.getElementById("totalProducts").innerText)*parseFloat(disc);
     document.getElementById('discountTotalProducts').innerText = parseFloat(document.getElementById('totalProducts').innerHTML)-discountPrice;
     document.getElementById('currencyDiscountTotalProducts').innerText = currency;
+    total();
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
