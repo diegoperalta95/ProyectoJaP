@@ -35,9 +35,11 @@ function showProduct(){
             </div>     
         </a>
     `
-    document.getElementById("c1").src = ProductArray['images'][0];
-    document.getElementById("c2").src = ProductArray['images'][1];
-    document.getElementById("c3").src = ProductArray['images'][2];
+    
+    for(let i=0;i<ProductArray['images'].length;i++){
+        document.getElementById("c"+i).src = ProductArray['images'][i];
+    }
+
     document.getElementById("titulo").innerHTML = ProductArray.name;
     document.getElementById("product").innerHTML = htmlContentToAppend;
 

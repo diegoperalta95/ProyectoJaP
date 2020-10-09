@@ -43,5 +43,18 @@ var getJSONData = function(url){
 
 
 document.addEventListener("DOMContentLoaded", function(e){ 
-    
+
+  $(window).scroll(function() {
+    if ($(this).scrollTop()) {
+        $('#top').fadeIn();
+    } else {
+        $('#top').fadeOut();
+    }
+  });
+
+    $('#top').on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop:0}, '300');
+  });
+
 });

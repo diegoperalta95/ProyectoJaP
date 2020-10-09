@@ -1,5 +1,8 @@
 var currency = "USD";
 var statusDiscount = false;
+var discountValue = 0;
+var prodTotal = 0;
+var totalProductsVal = 0;
 
 function showCart(){
 
@@ -13,9 +16,9 @@ function showCart(){
 
         if(product.currency != currency){   
             if(product.currency == "UYU"){
-                product.unitCost = parseFloat(product.unitCost/43).toFixed(2);
+                product.unitCost = parseFloat(product.unitCost/40).toFixed(2);
             }else{
-                product.unitCost = parseInt(product.unitCost*43).toFixed(1);
+                product.unitCost = parseInt(product.unitCost*40).toFixed(1);
             };  
             product.currency = currency;       
         }
@@ -52,7 +55,6 @@ function showCart(){
         applyDiscount();
     }
 }
-
 
 
 function subTotal(i,unitCost){
@@ -100,22 +102,24 @@ function shipping(){
 
 function totalProducts(){
     let cartInfo = JSON.parse(localStorage.getItem('Cart'));
-    let totalProducts = 0;
+    totalProductsVal = 0;
     for (let i = 0; i<cartInfo.articles.length;i++){
-        totalProducts += parseInt(document.getElementById("summary"+i).innerText.split(' ')[1]);
+        totalProductsVal += parseInt(document.getElementById("summary"+i).innerText.split(' ')[1]);
     }
     document.getElementById("currencyTotalProducts").innerText = currency;
-    document.getElementById("totalProducts").innerText = totalProducts;
+    document.getElementById("totalProducts").innerText = totalProductsVal;
+    
     shipping();
 }
 
 function total(){
     let disc = document.getElementById('discountTotalProducts').innerText;
+    
     let total ="";
     if(!disc){
-        total = parseInt($('#shippingCost').text())+parseInt($('#totalProducts').text());
+        total = (parseFloat($('#shippingCost').text())+parseFloat($('#totalProducts').text())).toFixed(2);
     }else{
-        total = parseInt($('#shippingCost').text())+parseInt($('#discountTotalProducts').text());
+        total = (parseFloat($('#shippingCost').text())+parseFloat(prodTotal)).toFixed(2);
     };
     document.getElementById("currencyTotal").innerText = currency;
     document.getElementById('total').innerText = total;
@@ -130,24 +134,27 @@ function discount(){
         $('#discount-code').removeClass('is-invalid');
         $('#discount-code').addClass('is-valid');
         $('#discount-code').attr('disabled','disabled');
-        document.getElementById("discount").innerText = "20";
-        document.getElementById("discountPercen").innerText = "%";
+        $("#totalProducts").addClass('crossOut');
+        $("#currencyTotalProducts").addClass('crossOut');
+        $('#currencyDiscountTotalProducts').css({'color':'green'});
+        $('#discountTotalProducts').css({'color':'green'});
+
+        document.getElementById("discount").innerText = "20%!";
+
+        discountValue = 20;
         applyDiscount();
     }
 }
 
 function applyDiscount(){
-    $("#totalProducts").addClass('crossOut');
-    $("#currencyTotalProducts").addClass('crossOut');
-
-    $('#currencyDiscountTotalProducts').css({'color':'green'});
-    $('#discountTotalProducts').css({'color':'green'});
-
     statusDiscount = true;
     
-    let disc = 0+"."+document.getElementById('discount').innerText;
-    let discountPrice = parseFloat(document.getElementById("totalProducts").innerText)*parseFloat(disc);
-    document.getElementById('discountTotalProducts').innerText = parseFloat(document.getElementById('totalProducts').innerHTML)-discountPrice;
+    let disc = 0+"."+discountValue;
+    let discountPrice = parseFloat(totalProductsVal)*parseFloat(disc);
+
+    prodTotal = parseFloat(parseFloat(document.getElementById('totalProducts').innerHTML)-discountPrice).toFixed(2);
+
+    document.getElementById('discountTotalProducts').innerText = prodTotal;
     document.getElementById('currencyDiscountTotalProducts').innerText = currency;
     total();
 }
