@@ -3,7 +3,7 @@ var statusDiscount = false;
 
 function showCart(){
 
-    $('#cart').empty();
+    $('#cart-table-list').empty();
 
     let cartInfo = JSON.parse(localStorage.getItem('Cart'));
 
@@ -45,9 +45,7 @@ function showCart(){
 
         </tr>       
         `;
-
-        $('#cart').append(content);
-        
+        $('#cart-table-list').append(content);
     }
     totalProducts();
     if(statusDiscount){
@@ -144,7 +142,9 @@ function applyDiscount(){
 
     $('#currencyDiscountTotalProducts').css({'color':'green'});
     $('#discountTotalProducts').css({'color':'green'});
+
     statusDiscount = true;
+    
     let disc = 0+"."+document.getElementById('discount').innerText;
     let discountPrice = parseFloat(document.getElementById("totalProducts").innerText)*parseFloat(disc);
     document.getElementById('discountTotalProducts').innerText = parseFloat(document.getElementById('totalProducts').innerHTML)-discountPrice;
@@ -162,8 +162,10 @@ document.addEventListener("DOMContentLoaded", function(e){
     $('#moneda').on('click',function(e){
         if( currency == "USD" ){
             currency = "UYU";
+            $('#moneda').html('Cambiar a USD <i class="fa fa-dollar-sign"></i>');
         }else{
             currency = "USD";
+            $('#moneda').html('Cambiar a UYU <i class="fa fa-dollar-sign"></i>');
         }
         showCart();
     });
@@ -185,5 +187,7 @@ document.addEventListener("DOMContentLoaded", function(e){
             discount();
         }
     });
+
+
 
 });

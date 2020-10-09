@@ -132,9 +132,15 @@ document.addEventListener("DOMContentLoaded", function(e){
         showCategoriesList();
     });
 
-    document.getElementById("rangeFilterCount").addEventListener("click", function(){
+    document.getElementById("searchBar").addEventListener("keyup", function(){
+        wordFilter = document.getElementById("searchBar").value;
+
+        showCategoriesList();
+    });
+
+
+    $('#rangeFilterCountMin, #rangeFilterCountMax').on('keyup',function(e){
         minCount = document.getElementById("rangeFilterCountMin").value;
-        maxCount = document.getElementById("rangeFilterCountMax").value;
 
         if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
             minCount = parseInt(minCount);
@@ -143,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function(e){
             minCount = undefined;
         }
 
+        maxCount = document.getElementById("rangeFilterCountMax").value;
         if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
             maxCount = parseInt(maxCount);
         }
@@ -152,12 +159,5 @@ document.addEventListener("DOMContentLoaded", function(e){
 
         showCategoriesList();
     });
-
-    document.getElementById("searchBar").addEventListener("keyup", function(){
-        wordFilter = document.getElementById("searchBar").value;
-
-        showCategoriesList();
-    })
-
 
 });

@@ -27,7 +27,7 @@ function showProduct(){
                 <div style="align-items:center" class="d-flex justify-content-center flex-column text-center col-12 ">
                     <h5>Precio: <b>${ProductArray.cost} ${ProductArray.currency}</b></h5>
                     <h5>${ProductArray.soldCount} Ya vendidos! </h5>
-                    <div><button class="btn btn-lg btn-primary btn-block">Comprar</button></div>
+                    <div><button class="btn btn-lg btn-dark btn-block">Agregar al carrito</button></div>
                 </div>
                 </div>
                 <hr style="width: 95%;">
@@ -100,7 +100,7 @@ function showCommentBox(){
                   <input type="radio" id="5" name="rating"/><label class="fa fa-star" for="5"></label><input type="radio" id="4" name="rating"/><label class="fa fa-star" for="4"></label><input type="radio" id="3" name="rating"/><label class="fa fa-star" for="3"></label><input type="radio" id="2" name="rating"/><label class="fa fa-star" for="2"></label><input type="radio" id="1" name="rating"/><label class="fa fa-star" for="1"></label>
                 </fieldset>
               </div>
-              <div><button class="btn btn-lg btn-primary btn-block" id="comentar">Comentar</button></div> 
+              <div><button class="btn btn-lg btn-dark btn-block" id="comentar">Comentar</button></div> 
         </div>
     </div>
     `

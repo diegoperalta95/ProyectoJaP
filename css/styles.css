@@ -1,3 +1,8 @@
+body {
+  background-image: url("../img/bg.png");
+  background-repeat: repeat;
+}
+
 .jumbotron, .card-body, .container, .site-header{
     font-family: 'Raleway', serif !important;
 }
@@ -226,6 +231,10 @@ td > img {
   vertical-align: middle;
 }
 
+#cart-table tbody{
+  background-color: white !important;
+}
+
 #cart-table thead th {
   color: #3d3d3d;
 }
@@ -279,6 +288,7 @@ input[type=number] {
 #recibo {
   outline: 1px solid rgb(206, 206, 206);
   padding: 10px 10px 10px 10px;
+  background-color: white !important;
 }
 
 .btn-shipping {

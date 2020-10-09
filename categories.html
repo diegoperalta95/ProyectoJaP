@@ -1,97 +1,106 @@
 <!DOCTYPE html>
 <!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <title>eMercado - Todo lo que busques está aquí</title>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <title>eMercado - Todo lo que busques está aquí</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
-    <!-- Google Auth -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="207878285034-a4b2l36mtlsr2lq2bp55qqofasdkmn3q.apps.googleusercontent.com">
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-  </head>
-  <body>
-    <header id="header" class="d-flex justify-content-around sticky-top site-header">
-      <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark pl-0 pt-0 pr-0 pb-0">
-      </nav>
-    </header>
-    <main role="main" class="pb-5">
-        <div class="text-center p-4">
-            <h2>Categorías</h2>
-            <p class="lead">Verás aquí todas las categorías del sitio.</p>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col text-right">
-                    <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
-                        <label class="btn btn-light active" id="sortAsc" >
-                            <input type="radio" name="options" autocomplete="off" checked>A-Z
-                        </label>
-                        <label class="btn btn-light" id="sortDesc" >
-                            <input type="radio" name="options" autocomplete="off">Z-A
-                        </label>
-                        <label class="btn btn-light" id="sortDescByCount" >
-                            <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Cant.
-                        </label>
-                        <label class="btn btn-light" id="sortAscByCount" >
-                          <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-up mr-1"></i>Cant.
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-end">
-              <div class="col-md-6 pl-0">
-                <input class="form-control ml-0" type="search" id="searchBar" placeholder="Buscar..."></input>
-              </div>
-                <div class="col-md-6 col-sm-12 mb-1 container">
-                  <div class="row container p-0 m-0">
-                    <div class="col">
-                      <p class="font-weight-normal text-right my-2">Cant.</p>
-                    </div>
-                    <div class="col">
-                      <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
-                    </div>
-                    <div class="col">
-                      <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
-                    </div>
-                    <div class="col-3 p-0">
-                      <div class="btn-group" role="group">
-                        <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
-                        <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="list-group" id="cat-list-container">
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer class="text-muted bg-light">
-      <div class="container">
-        <p class="float-right">
-          <a href="#">Volver arriba</a>
-        </p>
-        <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
-        <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+  <!-- Google Auth -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id"
+    content="207878285034-a4b2l36mtlsr2lq2bp55qqofasdkmn3q.apps.googleusercontent.com">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+  <header id="header" class="d-flex justify-content-around sticky-top site-header">
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark pl-0 pt-0 pr-0 pb-0">
+    </nav>
+  </header>
+  <main role="main" class="pb-5">
+    <div class="container">
+      <div class="text-center p-4">
+        <h2>Categorías</h2>
+        <p class="lead">Verás aquí todas las categorías del sitio.</p>
       </div>
-    </footer>
-    <div id="spinner-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/init.js"></script>
-    <script src="js/categories.js"></script>
-    <script src="js/navbar.js"></script>
-  </body>
+    </div>
+    <div class="container">
+      <div class="pl-0 d-flex justify-content-center">
+        <input class="form-control" type="search" id="searchBar" style="width:40%" placeholder="Busca lo que quieras!"></input>
+      </div>
+      <br>
+      <div class="row justify-content-around">
+        <div class="row col-md-6 col-sm-12">
+          <p class="font-weight-normal text-right my-2">Filtrar por cantidad: </p>
+          <div class="col">
+            <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
+          </div>
+          <div class="col">
+            <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
+          </div>
+          <div class="col-3">
+            <div class="btn-group" role="group">
+              <button class="btn btn-link btn-sm my-1" id="clearRangeFilter">Limpiar</button>
+            </div>
+          </div>
+        </div>
+        <div class="row col-md-6 col-sm-12 justify-content-end pr-0">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-dark active" id="sortAsc">
+              <input type="radio" name="options" autocomplete="off" checked>A-Z
+            </label>
+            <label class="btn btn-dark" id="sortDesc">
+              <input type="radio" name="options" autocomplete="off">Z-A
+            </label>
+            <label class="btn btn-dark" id="sortDescByCount">
+              <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Cant.
+            </label>
+            <label class="btn btn-dark" id="sortAscByCount">
+              <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-up mr-1"></i>Cant.
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="list-group" id="cat-list-container">
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="text-muted bg-light">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Volver arriba</a>
+      </p>
+      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
+      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+    </div>
+  </footer>
+  <div id="spinner-wrapper">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/categories.js"></script>
+  <script src="js/navbar.js"></script>
+</body>
+
 </html>

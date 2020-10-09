@@ -143,8 +143,13 @@ document.addEventListener("DOMContentLoaded", function(e){
 
         showProductsList();
     });
+    document.getElementById("searchBar").addEventListener("input", function(){
+        wordFilter = document.getElementById("searchBar").value.toUpperCase();
 
-    document.getElementById("rangeFilterCount").addEventListener("click", function(){
+        showProductsList();
+    });
+
+    $('#rangeFilterCountMin, #rangeFilterCountMax').on('keyup',function(e){
         minCount = document.getElementById("rangeFilterCountMin").value;
         maxCount = document.getElementById("rangeFilterCountMax").value;
 
@@ -162,14 +167,9 @@ document.addEventListener("DOMContentLoaded", function(e){
             maxCount = undefined;
         }
 
+
         showProductsList();
     });
-
-    document.getElementById("searchBar").addEventListener("input", function(){
-        wordFilter = document.getElementById("searchBar").value.toUpperCase();
-
-        showProductsList();
-    })
 
 });
                 
