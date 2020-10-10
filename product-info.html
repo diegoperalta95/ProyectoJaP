@@ -34,7 +34,7 @@
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark pl-0 pt-0 pr-0 pb-0">
     </nav>
   </header>
-  <div class="container p-5">
+  <div class="container p-5" autofocus>
     <h1 class="w3-center text-center" id="titulo"></h1>
     <div class="row">
       <div class="col-sm-12 col-lg-6 carousel" style="width:600px;height:400px;"
@@ -55,10 +55,44 @@
           <img id="c4">
         </div>
       </div>
-      <div class="col-sm-12 col-lg-6">
-        <div class="list-group" id="product"></div>
+      <div class="col-sm-12 col-lg-6 position-relative">
+        <nav>
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-desc-tab" data-toggle="tab" href="#nav-desc" role="tab"
+              aria-controls="nav-desc" aria-selected="true">Descripción general</a>
+            <a class="nav-item nav-link" id="nav-tec-tab" data-toggle="tab" href="#nav-tec" role="tab"
+              aria-controls="nav-tec" aria-selected="false">Ficha técnica</a>
+          </div>
+        </nav>
+        <div class="tab-content py-3 px-3 px-sm-0 col-12" id="nav-tabContent">
+          <div class="tab-pane fade show active list-group" id="nav-desc" role="tabpanel"
+            aria-labelledby="nav-desc-tab">
+            <div id="product"></div>
+          </div>
+          <div class="tab-pane fade" id="nav-tec" role="tabpanel" aria-labelledby="nav-tec-tab">
+            <table id="cart-table">
+              <thead>
+                <tr class="text-center">
+                  <th>Modelo</th>
+                  <th>Cilindrada</th>
+                  <th>Acceleración (0-100)</th>
+                  <th>Vel. Máxima</th>
+                  <th>Capacidad tanque</th>
+                  <th>Potencia</th>
+                </tr>
+              </thead>
+              <tbody id="productTech">
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div id="productButtons" class="text-center col-12 pl-0 pr-0"></div>
       </div>
+
     </div>
+  </div>
+  </div>
+  <div class="container p-5">
     <div class="col-12">
       <h4 class="text-center">Comentarios</h4>
       <div class="col-12" id="comments-container"></div>
@@ -68,6 +102,7 @@
     <h3 class="text-center col-12" style="margin-top: 15%;">También te puede interesar:</h3>
     <div class="d-flex" id="related-products">
     </div>
+  </div>
   </div>
   <footer class="text-muted">
     <div class="container">

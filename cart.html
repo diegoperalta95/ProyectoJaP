@@ -44,14 +44,11 @@
   <br>
   <h2 class="text-center">Tu carrito</h2>
   <div class="container p-5">
-
     <section>
-
-    <div class="row">
-
-      <div class="col-lg-8 mt-5">
-        <table id="cart-table">
-          <thead>
+      <div class="row">
+        <div class="col-lg-8 mt-5">
+          <table id="cart-table">
+            <thead>
               <tr class="text-center">
                 <th>Imagen</th>
                 <th>Producto</th>
@@ -60,20 +57,18 @@
                 <th>Subtotal</th>
                 <th>Eliminar</th>
               </tr>
-          </thead>
-          <tbody id="cart-table-list">
-          </tbody>
-      </table>      
-      </div>
-      
-
-      <div class="col-lg-4">
-
-        <div class="mb-3">
-          <div class="pt-4 text-center" id="recibo">
-            <p>Cambia la moneda en la que estas viendo esto!</p></p><button id="moneda" class="btn btn-dark fa"> 
-              Cambiar a UYU <i class="fa fa-dollar-sign"></i></button>
-            <hr>
+            </thead>
+            <tbody id="cart-table-list">
+            </tbody>
+          </table>
+        </div>
+        <div class="col-lg-4">
+          <div class="mb-3">
+            <div class="pt-4 text-center" id="recibo">
+              <p>Cambia la moneda en la que estas viendo esto!</p>
+              </p><button id="moneda" class="btn btn-dark fa">
+                Cambiar a UYU <i class="fa fa-dollar-sign"></i></button>
+              <hr>
               <a class="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample"
                 aria-expanded="false" aria-controls="collapseExample">
                 Código de descuento (opcional)
@@ -87,63 +82,64 @@
                   </div>
                 </div>
               </div>
-            <hr>
-            <h5 class="mb-3 text-center">Recibo:</h5>
-            <ul class="list-group list-group-flush">
-              <h6>Tipo de envio:</h6>
-              <li class="list-group-item border-0 px-0">
-                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-                  <label class="btn btn-secondary btn-shipping active">
-                    <i class="fa fa-truck"></i>
-                    <input type="radio" name="shipping" id="option1" autocomplete="off" value="5" checked> Estándar
-                  </label>
-                  <label class="btn btn-secondary btn-shipping">
-                    <i class="fa fa-shipping-fast"></i>
-                    <input type="radio" name="shipping" id="option2" autocomplete="off" value="7"> Express
-                  </label>
-                  <label class="btn btn-secondary btn-shipping">
-                    <i class="fa fa-fighter-jet"></i>
-                    <input type="radio" name="shipping" id="option3" autocomplete="off" value="15"> Premium
-                  </label>
-                </div>
-              </li>
-              <p id="shipping" class="small muted"></p>
-              <p id="shippingInfo" class="small muted"></p>
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                Monto de productos:
-                <span><span id="currencyTotalProducts"></span> <span id="totalProducts"></span></span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                Descuento:
-                <span><span id="discount"></span></span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                Prod. con descuento:
-                <span> <span id="currencyDiscountTotalProducts"></span> <span id="discountTotalProducts"></span></span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                Solo envío:
-                <span><span id="currencyShipping"></span> <span id="shippingCost"></span></span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                <div>
-                  <span></span><strong>Total:</strong>
-                </div>
-                <span><span id="currencyTotal"></span> <span><strong id="total"></strong></span></span>
+              <hr>
+              <h5 class="mb-3 text-center">Recibo:</h5>
+              <ul class="list-group list-group-flush">
+                <h6>Tipo de envio:</h6>
+                <li class="list-group-item border-0 px-0">
+                  <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                    <label class="btn btn-secondary btn-shipping active">
+                      <i class="fa fa-truck"></i>
+                      <input type="radio" name="shipping" id="option1" autocomplete="off" value="5" checked> Estándar
+                    </label>
+                    <label class="btn btn-secondary btn-shipping">
+                      <i class="fa fa-shipping-fast"></i>
+                      <input type="radio" name="shipping" id="option2" autocomplete="off" value="7"> Express
+                    </label>
+                    <label class="btn btn-secondary btn-shipping">
+                      <i class="fa fa-fighter-jet"></i>
+                      <input type="radio" name="shipping" id="option3" autocomplete="off" value="15"> Premium
+                    </label>
+                  </div>
+                </li>
+                <p id="shipping" class="small muted"></p>
+                <p id="shippingInfo" class="small muted"></p>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  Monto de productos:
+                  <span><span id="currencyTotalProducts"></span> <span id="totalProducts"></span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  Descuento:
+                  <span><span id="discount"></span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  Prod. con descuento:
+                  <span> <span id="currencyDiscountTotalProducts"></span> <span
+                      id="discountTotalProducts"></span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  Solo envío:
+                  <span><span id="currencyShipping"></span> <span id="shippingCost"></span></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                  <div>
+                    <span></span><strong>Total:</strong>
+                  </div>
+                  <span><span id="currencyTotal"></span> <span><strong id="total"></strong></span></span>
 
-              </li>
-            </ul>
+                </li>
+              </ul>
 
-            <button type="button" class="btn btn-dark btn-block">Confirmar pedido</button>
+              <button type="button" class="btn btn-dark btn-block">Confirmar pedido</button>
+
+            </div>
 
           </div>
-          
         </div>
       </div>
-    </div>
 
 
-  </section>
+    </section>
 
   </div>
   <div id="spinner-wrapper">
