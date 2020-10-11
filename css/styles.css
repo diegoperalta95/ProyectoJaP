@@ -1,5 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
 * {
-  font-family: fantasy ;
+  font-family: 'Roboto';
 }
 
 
@@ -156,6 +158,10 @@ a.custom-card:hover {
   text-decoration: inherit;
 }
 
+a.custom-card img {
+  max-height: 240px !important;
+}
+
 .checked {
   color: orange;
 }
@@ -202,16 +208,25 @@ a.custom-card:hover {
   font-size: 0.82em;
 }
 
-.profile-thumnail{
-  border-radius:50%;
-  width: 60px !important;
-  height: 60px !important;
+.avatar {
+  border-radius: 50% 50% 50% 50%;
+  height: 25px;
+  width: 25px;
+  vertical-align: center;
 }
 
 #menuUser{
   background-color:#111111;
   border-color:#111111;
 }
+
+.profile-thumnail{
+  border-radius:50%;
+  width: 60px !important;
+  height: 60px !important;
+}
+
+
 
 /*Sistema de puntuación*/
 
@@ -234,7 +249,7 @@ a.custom-card:hover {
   color: #ffbf00;
 }
 
-/*Tabla*/
+/* Tabla */
 
 td > img {
   width: 70px;
@@ -434,6 +449,7 @@ nav > div a.nav-item.nav-link:focus {
   min-height:150px;
   transition: .5s ease-in-out;
   padding: 0px 0px 0px 0px;
+  color:white !important;
 }
 
 .relatedText {
@@ -442,14 +458,6 @@ nav > div a.nav-item.nav-link:focus {
 
 .relatedText h4{
   margin-top:10%;
-}
-
-.related:hover {
-  color:white !important;
-}
-
-.related img:hover {
-  color:red !important;
 }
 
 .relatedText:hover {
@@ -471,3 +479,8 @@ nav > div a.nav-item.nav-link:focus {
   font-size: .8em !important;
   
 }
+
+
+/* navbar avatar */
+
+

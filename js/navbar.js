@@ -27,8 +27,10 @@ function showNavBar(){
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
         </ul>
+        
         <ul class="mb-0 pl-0">
-          <li class="dropdown float-right" id="dropdownUser" style="list-style:none">
+        
+          <li class="dropdown" id="dropdownUser" style="list-style:none;float:right;">
             <button id="menuUser" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </button>
               <div id="profileMenu" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -51,7 +53,7 @@ function showNavBar(){
     } 
 
     if(userLogged){
-      infouser.innerHTML += 'Bienvenido ' + userLogged;
+      infouser.innerHTML += '<img class="avatar" src="img/img_avatar4.png"> </img> Bienvenido ' + userLogged;
       document.getElementById("register").remove();
     }else{
       infouser.innerHTML += 'Bienvenido Invitado';
