@@ -114,7 +114,8 @@ function limpiarCampos() {
 
 function showCommentBox() {
     document.getElementById("comment-container").innerHTML = `
-    <div class="list-group-item ">
+    <hr>
+    <div style="padding-left: 20px;padding-right: 20px;">
         <div class="row">
           <h2>Cuéntanos tu experiencia!</h2>
               <textarea type="text" id="comentario" class="form-control" placeholder="Comentanos que te parece este vehículo..." required autofocus></textarea>

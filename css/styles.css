@@ -1,3 +1,8 @@
+* {
+  font-family: fantasy ;
+}
+
+
 body {
   background-image: url("../img/bg.png");
   background-repeat: repeat;
@@ -133,6 +138,15 @@ footer p {
   left:0;
   z-index: 1021;
   display: none;
+}
+
+a.custom-card {
+  transition: .4s ease-in-out;
+
+}
+
+a.custom-card:hover {
+  transform:scale(1.05);
 }
 
 a.custom-card,
@@ -370,7 +384,7 @@ input[type=number] {
 
 /* Menu de pestañas (tabs) */
 
-nav > .nav.nav-tabs{
+nav > .nav.nav-tabs {
 
   border: none;
   color:#fff;
@@ -378,9 +392,9 @@ nav > .nav.nav-tabs{
   border-radius:0;
 
 }
+
 nav > div a.nav-item.nav-link,
-nav > div a.nav-item.nav-link.active
-{
+nav > div a.nav-item.nav-link.active {
   border: none;
   padding: 18px 25px;
   color:#fff;
@@ -388,8 +402,7 @@ nav > div a.nav-item.nav-link.active
   border-radius:0;
 }
 
-nav > div a.nav-item.nav-link.active:after
- {
+nav > div a.nav-item.nav-link.active:after {
   content: "";
   position: relative;
   bottom: -60px;
@@ -397,7 +410,8 @@ nav > div a.nav-item.nav-link.active:after
   border: 15px solid transparent;
   border-top-color: #111111 ;
 }
-.tab-content{
+
+.tab-content {
   background:rgb(250, 250, 250);
   border: 1px solid #ddd;
   border-top:5px solid #111111;
@@ -406,8 +420,7 @@ nav > div a.nav-item.nav-link.active:after
 }
 
 nav > div a.nav-item.nav-link:hover,
-nav > div a.nav-item.nav-link:focus
-{
+nav > div a.nav-item.nav-link:focus {
   border: none;
   background: #111111;
   color:#fff;
@@ -442,4 +455,19 @@ nav > div a.nav-item.nav-link:focus
 .relatedText:hover {
   opacity: 1;
   background: rgba(0,0,0,0.7);
+}
+
+
+/* Container de productos */
+
+.container-info, .container-comentarios {
+  background:white;
+  outline: 1px solid rgb(245, 245, 245);
+  box-shadow: 2px 4px 3px 3px #c0c0c069;
+}
+
+
+#nav-tec-tab, #nav-desc-tab, #nav-tabContent {
+  font-size: .8em !important;
+  
 }
