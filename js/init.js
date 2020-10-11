@@ -4,7 +4,7 @@ const CATEGORY_INFO_URL = "https://japdevdep.github.io/ecommerce-api/category/12
 const PRODUCTS_URL = "https://diegoperalta95.github.io/ecommerce-api/products/cars/all.json";
 const PRODUCT_INFO_URL = "https://diegoperalta95.github.io/ecommerce-api/products/cars/";
 const PRODUCT_INFO_COMMENTS_URL = "https://japdevdep.github.io/ecommerce-api/product/5678-comments.json";
-const CART_INFO_URL = "https://japdevdep.github.io/ecommerce-api/cart/654.json";
+const CART_INFO_URL = "https://diegoperalta95.github.io/ecommerce-api/cart/cart.json";
 const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 
 var showSpinner = function(){
@@ -56,5 +56,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     e.preventDefault();
     $('html, body').animate({scrollTop:0}, '300');
   });
+
+  
 
 });

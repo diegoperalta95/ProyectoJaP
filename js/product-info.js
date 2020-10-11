@@ -38,7 +38,7 @@ function showProduct() {
 
     $('#productButtons').append(`
         <div style="align-items:center;float:left" class="d-flex justify-content-around text-center col-12 pl-0 pr-0">
-        <h5><b>${ProductArray.cost} ${ProductArray.currency}</b> - ${ProductArray.soldCount} Ya vendidos!</h5>
+        <h5 class="mt-2"><b>${ProductArray.cost} ${ProductArray.currency}</b> - ${ProductArray.soldCount} Ya vendidos!</h5>
         <button id="agregarCarrito" class="btn btn-lg btn-dark btn-block">Agregar al <i class="fa fa-shopping-cart"></i> </button>
         </div>`
     );
@@ -140,11 +140,13 @@ function showRelatedProducts() {
             ProductArray.relatedProducts.forEach(function (id) {
                 console.log(ProductsArray[id].id);
                 document.getElementById("related-products").innerHTML += `
-                <a href="product-info.html" class="d-flex list-group-item justify-content-center list-group-item-action" onclick="setCarInLS(${ProductsArray[id].id})">
-                    <div class="col-3">
-                        <img src="${ProductsArray[id].imgSrc}" alt="${ProductsArray[id].description}" class="img-thumbnail">  
-                    </div>  
-                    <div>
+                <a href="product-info.html" class="related d-flex list-group-item justify-content-center list-group-item-action" onclick="setCarInLS(${ProductsArray[id].id})" 
+                    style="background: url(${ProductsArray[id].imgSrc}) no-repeat center center;
+                    background-size: cover;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover; 
+                    -o-background-size: cover;">
+                    <div class="w-100 h-100 relatedText">
                     <h4 class="mb-1 text-center">${ProductsArray[id].name}</h4>
                         <p class="text-center">${ProductsArray[id].cost}${ProductsArray[id].currency}</p>
                     </div>
