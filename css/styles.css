@@ -390,7 +390,7 @@ input[type=number] {
   }
 }
 
-#agregarCarrito {
+.cartButton {
   max-height: 50px;
   max-width: 160px;
   padding-left: 0px;
@@ -465,7 +465,6 @@ nav > div a.nav-item.nav-link:focus {
   background: rgba(0,0,0,0.7);
 }
 
-
 /* Container de productos */
 
 .container-info, .container-comentarios {
@@ -474,13 +473,26 @@ nav > div a.nav-item.nav-link:focus {
   box-shadow: 2px 4px 3px 3px #c0c0c069;
 }
 
-
 #nav-tec-tab, #nav-desc-tab, #nav-tabContent {
   font-size: .8em !important;
   
 }
 
+/* filterButton en products.html */
 
-/* navbar avatar */
+#filterButton{
+  color:red !important;
+}
 
+#filterButton:hover {
+  color:darkred !important;
+}
 
+#cardNumber:after{
+  font-family: 'FontAwesome';
+  content: '\f274';
+}
+
+.input-group.is-invalid .invalid-feedback{
+  display: block;
+}

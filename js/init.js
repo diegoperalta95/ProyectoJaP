@@ -17,7 +17,6 @@ var hideSpinner = function(){
 
 var getJSONData = function(url){
     var result = {};
-    showSpinner();
     return fetch(url)
     .then(response => {
       if (response.ok) {
@@ -29,17 +28,22 @@ var getJSONData = function(url){
     .then(function(response) {
           result.status = 'ok';
           result.data = response;
-          hideSpinner();
           return result;
     })
     .catch(function(error) {
         result.status = 'error';
         result.data = error;
-        hideSpinner();
         return result;
     });
 }
 
+function checkLocalStorage(){
+  if (JSON.parse(localStorage.getItem('Cart') == null)){
+    let a = {};
+    a['Cars'] = [];
+    localStorage.setItem('Cart',JSON.stringify(a));
+  }
+}
 
 
 document.addEventListener("DOMContentLoaded", function(e){ 
@@ -57,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     $('html, body').animate({scrollTop:0}, '300');
   });
 
+  checkLocalStorage();
   
 
 });

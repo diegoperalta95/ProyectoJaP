@@ -45,8 +45,8 @@
   <h2 class="text-center">Tu carrito</h2>
   <div class="container p-5">
     <section>
-      <div class="row">
-        <div class="col-lg-8 mt-5">
+      <div class="row mt-5">
+        <div class="col-lg-8">
           <table id="cart-table">
             <thead>
               <tr class="text-center">
@@ -86,8 +86,8 @@
               <h5 class="mb-3 text-center">Recibo:</h5>
               <ul class="list-group list-group-flush">
                 <h6>Tipo de envio:</h6>
-                <li class="list-group-item border-0 px-0">
-                  <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                <li class="list-group-item border-0 px-0" id="radioEnvio">
+                  <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" id="divRadioEnvio">
                     <label class="btn btn-secondary btn-shipping active">
                       <i class="fa fa-truck"></i>
                       <input type="radio" name="shipping" id="option1" autocomplete="off" value="5" checked> Estándar
@@ -125,12 +125,13 @@
                   <div>
                     <span></span><strong>Total:</strong>
                   </div>
-                  <span><span id="currencyTotal"></span> <span><strong id="total"></strong></span></span>
+                  <span><b><span id="currencyTotal"></span> <span><strong id="total"></strong></span></b></span>
 
                 </li>
               </ul>
 
-              <button type="button" class="btn btn-dark btn-block">Confirmar pedido</button>
+              <button type="button" id="confirmButton" class="btn btn-dark btn-block" data-toggle="modal"
+                data-target="#paymentModal">Confirmar pedido</button>
 
             </div>
 
@@ -138,6 +139,65 @@
         </div>
       </div>
 
+      <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Detalles de pago (Total: <span id="totalModal"></span>)
+              </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="needs-validation" novalidate>
+                <div class="form-group">
+                  <label for="cardNumber">
+                    Número tarjeta</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="cardNumber" placeholder="Número de tarjeta" required pattern="^(4)[\d]{15}|(53)[\d]{14}"
+                      autofocus/>    
+                    <div class="input-group-append" id="inputMethod">
+                      <span class="input-group-text" id="basic-addon2"><span class="fa fa-lock"></span></span>
+                    </div>
+                    <span class="invalid-feedback">Campo inválido.</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-7 col-md-7">
+                    <div class="form-group">
+                      <label for="expityMonth">
+                        Fecha vencimiento</label>
+                      <div class="form-row">
+                        <div class="col-xs-6 col-lg-6 pl-ziro">
+                          <input type="number" class="form-control" id="expityMonth" placeholder="MM" min="1" max="12" required />
+                          <span class="invalid-feedback">Campo inválido.</span>
+                        </div>
+                        <div class="col-xs-6 col-lg-6 pl-ziro">
+                          <input type="number" class="form-control" id="expityYear" min="20" max="50" placeholder="AA" required />
+                          <span class="invalid-feedback">Campo inválido.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-5 col-md-5 pull-right">
+                    <div class="form-group">
+                      <label for="cvCode">
+                        Código de seguridad</label>
+                      <input type="password" class="form-control" id="code" placeholder="Código de seguridad" pattern="^[0-9]{3,4}" required />
+                        <div class="invalid-feedback w-100">Campo inválido.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" id="confirmPayment" class="btn btn-success col-12"> Confirmar pedido </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
     </section>
 

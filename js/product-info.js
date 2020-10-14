@@ -39,35 +39,34 @@ function showProduct() {
     $('#productButtons').append(`
         <div style="align-items:center;float:left" class="d-flex justify-content-around text-center col-12 pl-0 pr-0">
         <h5 class="mt-2"><b>${ProductArray.cost} ${ProductArray.currency}</b> - ${ProductArray.soldCount} Ya vendidos!</h5>
-        <button id="agregarCarrito" class="btn btn-lg btn-dark btn-block">Agregar al <i class="fa fa-shopping-cart"></i> </button>
+        <button id="addToCart" onclick="addToCart();" class=" cartButton btn btn-lg btn-dark btn-block">Agregar al <i class="fa fa-shopping-cart"></i> </button>
+        <button id="alreadyInCart" onclick="window.location.href='cart.html'" style="display:none" class="cartButton btn btn-lg btn-primary btn-block">En el <i class="fa fa-shopping-cart"></i> </button>
         </div>`
     );
 
     $('#productTech').append(`
         <tr class="text-center">
-            <td>
-                ${ProductArray['tech']['model']}
-            </td>
-            <td>
-                ${ProductArray['tech']['cyl']}
-            </td>
-            <td>
-                ${ProductArray['tech']['accel']}
-            </td>
-            <td>
-                ${ProductArray['tech']['maxVel']}
-            </td>
-            <td>
-                ${ProductArray['tech']['capacity']}
-            </td>
-            <td>
-                ${ProductArray['tech']['power']}
-            </td>
+            <td>${ProductArray['tech']['model']}</td>
+            <td>${ProductArray['tech']['cyl']}</td>
+            <td>${ProductArray['tech']['accel']}</td>
+            <td>${ProductArray['tech']['maxVel']}</td>
+            <td>${ProductArray['tech']['capacity']}</td>
+            <td>${ProductArray['tech']['power']}</td>
         </tr>
     `
     );
 
     showRelatedProducts()
+}
+
+function checkIfArticleExistsInCart(){
+    let cart = JSON.parse(localStorage.getItem('Cart'));
+    cart['Cars'].forEach(function(e){
+        if(e.id==CarId){
+            $('#addToCart').css({'display':'none'});
+            $('#alreadyInCart').css({'display':'block'});
+        }
+    });
 }
 
 function showComments() {
@@ -139,7 +138,6 @@ function showRelatedProducts() {
         if (resultObj.status === "ok") {
             ProductsArray = resultObj.data;
             ProductArray.relatedProducts.forEach(function (id) {
-                console.log(ProductsArray[id].id);
                 document.getElementById("related-products").innerHTML += `
                 <a href="product-info.html" class="related d-flex list-group-item justify-content-center list-group-item-action" onclick="setCarInLS(${ProductsArray[id].id})" 
                     style="background: url(${ProductsArray[id].imgSrc}) no-repeat center center;
@@ -154,13 +152,12 @@ function showRelatedProducts() {
                 </a>
                 `
             });
-
         }
     });
 }
 
-function setCarInLS(id){
-    localStorage.setItem("Auto",id);
+function setCarInLS(id) {
+    localStorage.setItem("Auto", id);
 }
 
 
@@ -170,6 +167,21 @@ function getCarID() {
     }
 }
 
+function addToCart() {
+
+    let cart = JSON.parse(localStorage.getItem('Cart'));
+
+    let a = {};
+    a.id = CarId;
+    a.count = 1;
+
+    cart.Cars.push(a);
+
+    localStorage.setItem('Cart', JSON.stringify(cart));
+
+    checkIfArticleExistsInCart()
+
+}
 
 document.addEventListener("DOMContentLoaded", function (e) {
 
@@ -186,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
             ProductArray = resultObj.data;
             showProduct();
+            checkIfArticleExistsInCart()
         }
     });
 

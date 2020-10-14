@@ -56,7 +56,7 @@ function showNavBar(){
       infouser.innerHTML += '<img class="avatar" src="img/img_avatar4.png"> </img> Bienvenido ' + userLogged;
       document.getElementById("register").remove();
     }else{
-      infouser.innerHTML += 'Bienvenido Invitado';
+      infouser.innerHTML += '<img class="avatar" src="img/img_avatar4.png"> </img> Bienvenido Invitado';
       document.getElementById("cart").remove();
       document.getElementById("profileLink").remove();
       document.getElementById("logoutLink").remove();    
