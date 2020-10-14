@@ -37,7 +37,7 @@ var getJSONData = function(url){
     });
 }
 
-function checkLocalStorage(){
+function createCartIfUserLogged(){
   if (JSON.parse(localStorage.getItem('Cart') == null)){
     let a = {};
     a['Cars'] = [];
@@ -61,7 +61,8 @@ document.addEventListener("DOMContentLoaded", function(e){
     $('html, body').animate({scrollTop:0}, '300');
   });
 
-  checkLocalStorage();
+  if (localStorage.getItem('Name') != null || localStorage.getItem('Name') != undefined){
+    createCartIfUserLogged();
+  };
   
-
 });

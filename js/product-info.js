@@ -199,7 +199,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
             ProductArray = resultObj.data;
             showProduct();
             checkIfArticleExistsInCart()
-        }
+            if (localStorage.getItem('Name') == null || localStorage.getItem('Name') == undefined){
+                $('#addToCart').css({'display':'none'});
+                $('#alreadyInCart').css({'display':'none'});
+            };
+        };
     });
 
     function sortAndShowComments(sortCriteria) {
