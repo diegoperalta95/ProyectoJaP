@@ -5,24 +5,24 @@ var prodTotal = 0;
 var totalProductsVal = 0;
 productsArray = [];
 
-function showCart(){
+function showCart() {
 
     $('#cart-table-list').empty();
 
-    for (let i = 0; i<productsArray.length;i++){
+    for (let i = 0; i < productsArray.length; i++) {
         let product = productsArray[i];
         let content = '';
 
-        if(product.currency != currency){   
-            if(product.currency == "UYU"){
-                product.cost = parseFloat(product.cost/40).toFixed(2);
-            }else{
-                product.cost = parseInt(product.cost*40).toFixed(1);
-            };  
-            product.currency = currency;       
+        if (product.currency != currency) {
+            if (product.currency == "UYU") {
+                product.cost = parseFloat(product.cost / 40).toFixed(2);
+            } else {
+                product.cost = parseInt(product.cost * 40).toFixed(1);
+            };
+            product.currency = currency;
         };
 
-        if(product.count == 0){
+        if (product.count == 0) {
             product.count = 1;
         };
 
@@ -43,7 +43,7 @@ function showCart(){
                 <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();subTotal(${i},${product.cost});">+</button>
             </td>
             <td id="summary${i}">
-                ${currency} ${(product.cost*product.count).toFixed(2)} 
+                ${currency} ${(product.cost * product.count).toFixed(2)}
             </td>
             <td>
                 <button type="button" class="btn btn-danger" onclick="deleteProduct(${i})">
@@ -59,106 +59,106 @@ function showCart(){
         $('#cart-table-list').append(content);
     }
     totalProducts();
-    if(statusDiscount){
+    if (statusDiscount) {
         applyDiscount();
     }
-    
+
 }
 
-function deleteProduct(i){
+function deleteProduct(i) {
     var r = confirm("¿Está seguro que desea eliminar el item?");
     if (r == true) {
         let cart = JSON.parse(localStorage.getItem("Cart"));
         cart['Cars'].splice(i, 1);
-        localStorage.setItem('Cart',JSON.stringify(cart));
+        localStorage.setItem('Cart', JSON.stringify(cart));
         loadProducts();
     }
 
 }
 
-function subTotal(i,unitCost){
-    if($('#quantityCart'+i).val()<=0){
-        $('#quantityCart'+i).val(1);
+function subTotal(i, unitCost) {
+    if ($('#quantityCart' + i).val() <= 0) {
+        $('#quantityCart' + i).val(1);
     }
-    document.getElementById("summary"+i).textContent = currency+' '+(document.getElementById('quantityCart'+i).value*unitCost).toFixed(2);
+    document.getElementById("summary" + i).textContent = currency + ' ' + (document.getElementById('quantityCart' + i).value * unitCost).toFixed(2);
     let cart = JSON.parse(localStorage.getItem('Cart'));
-    cart['Cars'][i]['count'] = document.getElementById('quantityCart'+i).value;
-    localStorage.setItem('Cart',JSON.stringify(cart));
+    cart['Cars'][i]['count'] = document.getElementById('quantityCart' + i).value;
+    localStorage.setItem('Cart', JSON.stringify(cart));
     totalProducts();
-    if(statusDiscount){
+    if (statusDiscount) {
         applyDiscount();
     };
 }
 
-function totalProducts(){
+function totalProducts() {
     totalProductsVal = 0;
-    for (let i = 0; i<productsArray.length;i++){
-        totalProductsVal += parseInt(document.getElementById("summary"+i).innerText.split(' ')[1]);
+    for (let i = 0; i < productsArray.length; i++) {
+        totalProductsVal += parseInt(document.getElementById("summary" + i).innerText.split(' ')[1]);
     }
     document.getElementById("currencyTotalProducts").innerText = currency;
     document.getElementById("totalProducts").innerText = totalProductsVal;
-    
+
     shipping();
 }
 
 
-function shipping(){
+function shipping() {
     let porcen = $("input[name='shipping']:checked").val();
 
     $('#shipping').empty();
-    $('#shipping').append("El costo por el envío será de "+porcen+"% y no se contará sobre el cupón.");
+    $('#shipping').append("El costo por el envío será de " + porcen + "% y no se contará sobre el cupón.");
 
     $('#shippingInfo').empty();
     let shippingInfo = "";
-    if(porcen == 5){
+    if (porcen == 5) {
         shippingInfo = "12 y 15 días."
-        $('#shippingInfo').css({'color':'#212529'});
-    }else if(porcen == 7){
+        $('#shippingInfo').css({ 'color': '#212529' });
+    } else if (porcen == 7) {
         shippingInfo = "5 y 8 días."
-        $('#shippingInfo').css({'color':'#212529'});
-    }else{
+        $('#shippingInfo').css({ 'color': '#212529' });
+    } else {
         shippingInfo = "2 y 5 días.";
-        $('#shippingInfo').css({'color':'green'});   
+        $('#shippingInfo').css({ 'color': 'green' });
     }
-    
-    $('#shippingInfo').append("El envío demorara entre "+shippingInfo);
+
+    $('#shippingInfo').append("El envío demorara entre " + shippingInfo);
 
     let shipping = 0;
     let totalProducts = document.getElementById("totalProducts").innerText;
-    shipping = (porcen*totalProducts)/100;
+    shipping = (porcen * totalProducts) / 100;
 
     document.getElementById("currencyShipping").innerText = currency;
-    $('#shippingCost').text(shipping);  
+    $('#shippingCost').text(shipping);
     total();
 }
 
-function total(){
-   
-    let total ="";
-    if(discountValue == 0){
-        total = (parseFloat($('#shippingCost').text())+parseFloat($('#totalProducts').text())).toFixed(2);
-    }else{
-        total = (parseFloat($('#shippingCost').text())+parseFloat(prodTotal)).toFixed(2);
+function total() {
+
+    let total = "";
+    if (discountValue == 0) {
+        total = (parseFloat($('#shippingCost').text()) + parseFloat($('#totalProducts').text())).toFixed(2);
+    } else {
+        total = (parseFloat($('#shippingCost').text()) + parseFloat(prodTotal)).toFixed(2);
     };
     document.getElementById("currencyTotal").innerText = currency;
     document.getElementById('total').innerText = total;
 
-    $('#totalModal')[0].innerText = currency+' '+total
+    $('#totalModal')[0].innerText = currency + ' ' + total
 
 }
 
-function discount(){
+function discount() {
     let code = $('#discount-code').val();
-    if (code != "jaimito"){
+    if (code != "jaimito") {
         $('#discount-code').addClass('is-invalid');
-    }else{
+    } else {
         $('#discount-code').removeClass('is-invalid');
         $('#discount-code').addClass('is-valid');
-        $('#discount-code').attr('disabled','disabled');
+        $('#discount-code').attr('disabled', 'disabled');
         $("#totalProducts").addClass('crossOut');
         $("#currencyTotalProducts").addClass('crossOut');
-        $('#currencyDiscountTotalProducts').css({'color':'green'});
-        $('#discountTotalProducts').css({'color':'green'});
+        $('#currencyDiscountTotalProducts').css({ 'color': 'green' });
+        $('#discountTotalProducts').css({ 'color': 'green' });
 
         document.getElementById("discount").innerText = "20%!";
 
@@ -167,33 +167,33 @@ function discount(){
     }
 }
 
-function applyDiscount(){
+function applyDiscount() {
     statusDiscount = true;
-    
-    let disc = 0+"."+discountValue;
-    let discountPrice = parseFloat(totalProductsVal)*parseFloat(disc);
 
-    prodTotal = parseFloat(parseFloat(document.getElementById('totalProducts').innerHTML)-discountPrice).toFixed(2);
+    let disc = 0 + "." + discountValue;
+    let discountPrice = parseFloat(totalProductsVal) * parseFloat(disc);
+
+    prodTotal = parseFloat(parseFloat(document.getElementById('totalProducts').innerHTML) - discountPrice).toFixed(2);
 
     document.getElementById('discountTotalProducts').innerText = prodTotal;
     document.getElementById('currencyDiscountTotalProducts').innerText = currency;
     total();
 }
 
-function loadProducts(){
+function loadProducts() {
 
     productsArray = [];
     let cart = JSON.parse(localStorage.getItem("Cart"));
 
-    if(cart['Cars'].length == 0){
-        emptyCart(); 
+    if (cart['Cars'].length == 0) {
+        emptyCart();
     }
 
     cart['Cars'].forEach(element => {
-        getJSONData(PRODUCT_INFO_URL+element.id+".json").then(function(resultObj){
-            if (resultObj.status === "ok"){
+        getJSONData(PRODUCT_INFO_URL + element.id + ".json").then(function (resultObj) {
+            if (resultObj.status === "ok") {
                 productsArray.push(resultObj.data);
-                productsArray[productsArray.length-1]['count'] = element.count;
+                productsArray[productsArray.length - 1]['count'] = element.count;
                 showCart();
             }
         });
@@ -201,7 +201,7 @@ function loadProducts(){
 
 }
 
-function emptyCart(){
+function emptyCart() {
     $('#cart-table-list').empty();
     $('#totalProducts').empty();
     $('#total').empty();
@@ -210,8 +210,8 @@ function emptyCart(){
     $('#currencyShipping').empty();
     $('#currencyTotal').empty();
 
-    $('#radioEnvio').attr('Disabled','Disabled');
-    $('#divRadioEnvio').attr('Disabled','Disabled');
+    $('#radioEnvio').attr('Disabled', 'Disabled');
+    $('#divRadioEnvio').attr('Disabled', 'Disabled');
     $('#option1').parent().removeClass('active');
     $('#option2').parent().removeClass('active');
     $('#option3').parent().removeClass('active');
@@ -221,7 +221,7 @@ function emptyCart(){
     $('#discountTotalProducts').empty();
     $('#currencyDiscountTotalProducts').empty();
 
-    $('#discount-code').attr('Disabled','Disabled');
+    $('#discount-code').attr('Disabled', 'Disabled');
     $('#discount-code').removeClass('is-valid');
     $('#discount-code').removeClass('is-invalid');
 
@@ -230,88 +230,153 @@ function emptyCart(){
     $('#shipping').empty();
     $('#shippingInfo').empty();
     $('#shipping').append("Debe tener algo en el carrito para poder seleccionar el tipo de envío.");
-    $('#shipping').css({'color':'red'})
+    $('#shipping').css({ 'color': 'red' })
 
-    $('#confirmButton').attr('Disabled','Disabled');
+    $('#confirmButton').attr('Disabled', 'Disabled');
+
+    $('#shippingBox').css({'display':'none'});
 
     alert("No tiene productos en el carrito.");
-    
+
 }
 
-function checkLoggedUser(){
-    if(localStorage.getItem('Name') == null || localStorage.getItem('Name') == undefined){
-        window.location.href="/home.html";
+function checkLoggedUser() {
+    if (localStorage.getItem('Name') == null || localStorage.getItem('Name') == undefined) {
+        window.location.href = "/home.html";
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(e){
+function verifyShippingInfo(){
+    $('#shippingNumber, #shippingAddress, #shippingAddress2, #shippingCountries').on('change keyup focusout', function(e){
+        if($('#shippingNumber')[0].checkValidity() && $('#shippingAddress')[0].checkValidity() && $('#shippingAddress2')[0].checkValidity() 
+        && $('#shippingCountries')[0].checkValidity()){
+            $('#errorShipping').css({'display':'none'});
+        }else{
+            $('#errorShipping').css({'display':'block'});
+        }
+    });
+
+    $('#confirmButton').on('click', function (e) {
+        if(!($('#shippingNumber')[0].checkValidity() && $('#shippingAddress')[0].checkValidity() && $('#shippingAddress2')[0].checkValidity() 
+        && $('#shippingCountries')[0].checkValidity())){
+            e.preventDefault();
+            e.stopPropagation();
+            $('#errorShipping').css({'display':'block'});
+        }else{
+            $('#errorShipping').css({'display':'none'});
+        }
+    });
+
+}
+
+document.addEventListener("DOMContentLoaded", function (e) {
 
     checkLoggedUser();
-  
+
     loadProducts();
 
-    $('#moneda').on('click',function(e){
-        if( currency == "USD" ){
+    $('#moneda').on('click', function (e) {
+        if (currency == "USD") {
             currency = "UYU";
             $('#moneda').html('Cambiar a USD <i class="fa fa-dollar-sign"></i>');
-        }else{
+        } else {
             currency = "USD";
             $('#moneda').html('Cambiar a UYU <i class="fa fa-dollar-sign"></i>');
         }
         loadProducts();
     });
 
-    $("input[name='shipping']").on('change',function(e){
+    $("input[name='shipping']").on('change', function (e) {
         shipping();
     });
 
-    $('#discount-code').bind("enter",function(e){
+    $('#discount-code').bind("enter", function (e) {
         discount();
     });
 
-    $('#discount-code').on('keyup focusout', function(e){
-        if(e.type != "focusout"){
-            if(e.keyCode == 13){
+    $('#discount-code').on('keyup focusout', function (e) {
+        if (e.type != "focusout") {
+            if (e.keyCode == 13) {
                 $(this).trigger("enter");
             }
-        }else{
+        } else {
             discount();
         }
     });
 
-    $('#cardNumber').on('keyup', function(e){
-        let number = $('#cardNumber').val();
-        if(number.match(/^(53)+/)){
-            $('#inputMethod').empty();
-            let content = `
-            <span class="input-group-text" id="basic-addon3"><i class="fab fa-cc-mastercard fa-lg"></i></span>
-            <span class="input-group-text" id="basic-addon2"><span class="fa fa-lock"></span></span> 
-            `;
-            $('#inputMethod').append(content);
-        }else if(number.match(/^(4)+/)){
-            $('#inputMethod').empty();
-            let content = `
-            <span class="input-group-text" id="basic-addon3"><i class="fab fa-cc-visa fa-lg"></i></span>
-            <span class="input-group-text" id="basic-addon2"><span class="fa fa-lock"></span></span> 
-            `;
-            $('#inputMethod').append(content);
-        }else{
-            $('#inputMethod').empty();
-            let content = `
-            <span class="input-group-text" id="basic-addon2"><span class="fa fa-lock"></span></span> 
-            `;
-            $('#inputMethod').append(content);
+    new Cleave('.cardNumber', {
+        creditCard: true,
+        delimiter: '-',
+        onCreditCardTypeChanged: function (type) {
+            if (type === 'visa') {
+                $('.fa-cc-visa').addClass('active');
+                $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+            } else if (type === 'mastercard') {
+                $('.fa-cc-mastercard').addClass('active');
+                $('.fa-cc-visa,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+            } else if (type === 'amex') {
+                $('.fa-cc-amex').addClass('active');
+                $('.fa-cc-mastercard,.fa-cc-visa,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+            } else if (type === 'diners') {
+                $('.fa-cc-diners-club').addClass('active');
+                $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-visa,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+            } else if (type === 'jcb') {
+                $('.fa-cc-jcb').addClass('active');
+                $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-visa,.fa-cc-discover').removeClass('active');
+            } else if (type === 'discover') {
+                $('.fa-cc-discover').addClass('active');
+                $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-visa').removeClass('active');
+            } else {
+                $('.fa-cc-visa,.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+            }
         }
- 
+    });
+
+    new Cleave('.expiryMonth', {
+        date: true,
+        datePattern: ['m', 'y']
+    });
+
+    $('#countries').on('change', function (e) {
+        getJSONData(COUNTRY + $('#countries').val()).then(function (resultObj) {
+            if (resultObj.status === "ok") {
+                new Cleave('.phoneNumber', {
+                    phone: true,
+                    phoneRegionCode: resultObj.data[0].alpha2Code
+                });
+            }
+        });
+    });
+
+    getJSONData(COUNTRIES).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            resultObj.data.forEach(country => {
+                $('#countries').append(`<option value="${country.name}" name="country">${country.name}</option>`);
+                $('#shippingCountries').append(`<option value="${country.name}" name="country">${country.name}</option>`);
+            });
+        }
     });
 
     let form = document.getElementById('needs-validation');
 
-    form.addEventListener('submit', function(event) {
-      if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      form.classList.add('was-validated');
+    form.addEventListener('submit', function (event) {
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
     });
+
+    let formacc = document.getElementById('needs-validation-acc');
+
+    formacc.addEventListener('submit', function (event) {
+        if (formacc.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        formacc.classList.add('was-validated');
+    });
+
+
+    verifyShippingInfo()
 });

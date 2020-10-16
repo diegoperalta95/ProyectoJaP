@@ -15,6 +15,9 @@
 
   <link href="css/font-awesome.min.css" rel="stylesheet">
 
+  <script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
+  <script src="js/CleaveAddon/phone-type-formatter.i18n.js"></script>
+
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -43,9 +46,9 @@
   </header>
   <br>
   <h2 class="text-center">Tu carrito</h2>
-  <div class="container p-5">
+  <div class="container container-info p-5">
     <section>
-      <div class="row mt-5">
+      <div class="row">
         <div class="col-lg-8">
           <table id="cart-table">
             <thead>
@@ -83,7 +86,7 @@
                 </div>
               </div>
               <hr>
-              <h5 class="mb-3 text-center">Recibo:</h5>
+              <h4 class="mb-3 text-center">Recibo:</h4>
               <ul class="list-group list-group-flush">
                 <h6>Tipo de envio:</h6>
                 <li class="list-group-item border-0 px-0" id="radioEnvio">
@@ -104,7 +107,56 @@
                 </li>
                 <p id="shipping" class="small muted"></p>
                 <p id="shippingInfo" class="small muted"></p>
-                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                
+                <div class="col-md-12" id="shippingBox">
+                  <hr style="width: 95%;">
+                  <h4>Datos de envío:</h4>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label for="address">
+                        País:</label>
+                      <div class="input-group">
+                        <select name="countries" class="form-control" id="shippingCountries" required>
+                          <option value="" selected>Seleccione un país</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                      <label for="shippingAddress">
+                        Dirección:</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="shippingAddress" placeholder="Dirección" required
+                          autofocus pattern="^[a-zA-z ,.0-9]+" />
+                      </div>
+                    </div>
+                    <div class="col-md-12 mt-3 d-flex justify-content-around">
+                      <div class="form-row col-md-12">
+                        <div class="col">
+                          <label for="shippingNumber">
+                            Número:</label></div>
+                        <div class="col">
+                          <label class="pr-3" for="shippingAddress2">
+                            Esquina:</label></div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-center">
+                      <div class="form-row col-md-12">
+                        <div class="col">
+                          <input type="text" class="form-control" id="shippingNumber" minlength="3" placeholder="Número" required autofocus
+                            pattern="^[0-9]+" />
+                        </div>
+                        <div class="col">
+                          <input type="text" class="form-control" id="shippingAddress2" minlength="3" placeholder="Esquina" required autofocus
+                            pattern="^[a-zA-Z .,0-9]+" />
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                
+                  <span class="col-md-12 mt-3 small" id="errorShipping" style="color:red;display:none;">Asegurese de completar todos los campos</span>
+                </div>
+                <hr style="width: 95%;">
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 mt-3">
                   Monto de productos:
                   <span><span id="currencyTotalProducts"></span> <span id="totalProducts"></span></span>
                 </li>
@@ -126,15 +178,11 @@
                     <span></span><strong>Total:</strong>
                   </div>
                   <span><b><span id="currencyTotal"></span> <span><strong id="total"></strong></span></b></span>
-
                 </li>
               </ul>
-
               <button type="button" id="confirmButton" class="btn btn-dark btn-block" data-toggle="modal"
                 data-target="#paymentModal">Confirmar pedido</button>
-
             </div>
-
           </div>
         </div>
       </div>
@@ -143,58 +191,154 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Detalles de pago (Total: <span id="totalModal"></span>)
+              <h5 class="modal-title" id="modalTitle">Detalles de pago (Total: <span id="totalModal"></span>)
               </h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form id="needs-validation" novalidate>
-                <div class="form-group">
-                  <label for="cardNumber">
-                    Número tarjeta</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="cardNumber" placeholder="Número de tarjeta" required pattern="^(4)[\d]{15}|(53)[\d]{14}"
-                      autofocus/>    
-                    <div class="input-group-append" id="inputMethod">
-                      <span class="input-group-text" id="basic-addon2"><span class="fa fa-lock"></span></span>
-                    </div>
-                    <span class="invalid-feedback">Campo inválido.</span>
-                  </div>
+              <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-card-tab" data-toggle="tab" href="#nav-card" role="tab"
+                    aria-controls="nav-card" aria-selected="true">Tarjeta de crédito</a>
+                  <a class="nav-item nav-link" id="nav-acc-tab" data-toggle="tab" href="#nav-acc" role="tab"
+                    aria-controls="nav-acc" aria-selected="false">Cuenta bancaria</a>
                 </div>
-                <div class="row">
-                  <div class="col-xs-7 col-md-7">
+              </nav>
+              <div class="tab-content py-3 px-3 px-sm-0 col-12" id="nav-tabContent">
+                <div class="tab-pane fade show active list-group" id="nav-card" role="tabpanel"
+                  aria-labelledby="nav-card-tab">
+                  <form id="needs-validation" name="formPaymentMethod" novalidate>
                     <div class="form-group">
-                      <label for="expityMonth">
-                        Fecha vencimiento</label>
-                      <div class="form-row">
-                        <div class="col-xs-6 col-lg-6 pl-ziro">
-                          <input type="number" class="form-control" id="expityMonth" placeholder="MM" min="1" max="12" required />
-                          <span class="invalid-feedback">Campo inválido.</span>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="cardNumber">
+                            Número tarjeta</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control cardNumber" id="cardNumber"
+                              placeholder="Número de tarjeta" required autofocus pattern="[0-9-]{16,}" />
+                            <div class="input-group-append" id="inputMethod">
+                              <span class="input-group-text" id="basic-addon2"><span class="fa fa-lock"></span></span>
+                            </div>
+                            <span class="invalid-feedback">Campo inválido.</span>
+                          </div>
                         </div>
-                        <div class="col-xs-6 col-lg-6 pl-ziro">
-                          <input type="number" class="form-control" id="expityYear" min="20" max="50" placeholder="AA" required />
-                          <span class="invalid-feedback">Campo inválido.</span>
+                        <div class="col-md-12 mt-1">
+                          <i class="fab fa-cc-mastercard fa-3x paymentIcon "></i>
+                          <i class="fab fa-cc-visa fa-3x paymentIcon "></i>
+                          <i class="fab fa-cc-discover fa-3x paymentIcon "></i>
+                          <i class="fab fa-cc-jcb fa-3x paymentIcon "></i>
+                          <i class="fab fa-cc-diners-club fa-3x paymentIcon "></i>
+                          <i class="fab fa-cc-amex fa-3x paymentIcon "></i>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-xs-5 col-md-5 pull-right">
                     <div class="form-group">
-                      <label for="cvCode">
-                        Código de seguridad</label>
-                      <input type="password" class="form-control" id="code" placeholder="Código de seguridad" pattern="^[0-9]{3,4}" required />
-                        <div class="invalid-feedback w-100">Campo inválido.</div>
+                      <div class="form-row">
+                        <div class="col">
+                          <label for="expityMonth">
+                            Fecha vencimiento</label>
+                          <input type="text" class="form-control expiryMonth" id="expiryMonth" placeholder="MM/AA"
+                            required pattern="^(0[1-9]|10|11|12)/([2-9][0-9])$" />
+                          <span class="invalid-feedback">Campo inválido.</span>
+                        </div>
+                        <div class="col">
+                          <label for="cvCode">
+                            Código de seguridad</label>
+                          <input type="password" class="form-control" id="code" placeholder="Código de seguridad"
+                            pattern="^[0-9]{3,4}" required />
+                          <div class="invalid-feedback">Campo inválido.</div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div class="form-group">
+                      <div class="form-row">
+                        <div class="col">
+                          <label for="name">
+                            Nombre</label>
+                          <input type="text" class="form-control" id="name" placeholder="Nombre" pattern="^[a-zA-Z]+"
+                            required />
+                          <div class="invalid-feedback">Campo inválido.</div>
+                        </div>
+                        <div class="col">
+                          <label for="surnames">
+                            Apellidos</label>
+                          <input type="text" class="form-control" id="surnames" placeholder="Apellidos"
+                            pattern="^[a-zA-Z]+" required />
+                          <div class="invalid-feedback">Campo inválido.</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-row">
+                        <div class="col">
+                          <label for="address">
+                            Dirección de facturación</label>
+                          <input type="text" class="form-control" id="address" placeholder="Dirección"
+                            pattern="^[a-zA-Záéíóúü0-9 ,.]+" required />
+                          <div class="invalid-feedback">Campo inválido.</div>
+                        </div>
+                        <div class="col">
+                          <label for="countries">
+                            Pais</label>
+                          <select name="countries" class="form-control" id="countries" required>
+                            <option value="" selected>Seleccione un país</option>
+                          </select>
+                          <div class="invalid-feedback">Seleccione un país por favor.</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-row">
+                        <div class="col">
+                          <label for="phoneNumber">
+                            Teléfono</label>
+                          <input type="text" class="form-control phoneNumber" id="phoneNumber" min="0000"
+                            placeholder="Número telefónico" required />
+                          <div class="invalid-feedback">Campo inválido2131231.</div>
+                        </div>
+                        <div class="col">
+                          <label for="local">
+                            Localidad</label>
+                          <input type="text" class="form-control" id="local" placeholder="Localidad"
+                            pattern="^[a-zA-Z0-9 ]+" required />
+                          <div class="invalid-feedback">Campo inválido.</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" id="confirmPaymentCard" class="btn btn-success col-12"> Confirmar pedido
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="submit" id="confirmPayment" class="btn btn-success col-12"> Confirmar pedido </button>
+                <div class="tab-pane fade list-group" id="nav-acc" role="tabpanel" aria-labelledby="nav-acc-tab">
+                  <form id="needs-validation-acc" novalidate>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="accNumber">
+                            Número de cuenta bancaria:</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control accNumber" id="accNumber"
+                              placeholder="Número de cuenta" required autofocus pattern="^[0-9]+" />
+                            <div class="input-group-append" id="inputMethod">
+                              <span class="input-group-text" id="basic-addon2"><span class="fa fa-lock"></span></span>
+                            </div>
+                            <span class="invalid-feedback">Campo inválido.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" id="confirmPaymentAcc" class="btn btn-success col-12"> Confirmar pedido
+                      </button>
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
-
           </div>
         </div>
       </div>

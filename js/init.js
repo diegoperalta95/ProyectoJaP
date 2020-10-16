@@ -6,6 +6,9 @@ const PRODUCT_INFO_URL = "https://diegoperalta95.github.io/ecommerce-api/product
 const PRODUCT_INFO_COMMENTS_URL = "https://japdevdep.github.io/ecommerce-api/product/5678-comments.json";
 const CART_INFO_URL = "https://diegoperalta95.github.io/ecommerce-api/cart/cart.json";
 const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
+const COUNTRIES = "https://diegoperalta95.github.io/ecommerce-api/countries/all.json";
+const COUNTRY = "https://restcountries.eu/rest/v2/name/";
+
 
 var showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
@@ -44,7 +47,6 @@ function createCartIfUserLogged(){
     localStorage.setItem('Cart',JSON.stringify(a));
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", function(e){ 
 

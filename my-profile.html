@@ -39,12 +39,52 @@
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark pl-0 pt-0 pr-0 pb-0">
     </nav>
   </header>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 7 (Fecha de entrega: 8/11/202020) -> Punto 1 y 2.</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <div class="container p-5 d-flex justify-content-center">
+    <div class="col-5 container-info pb-3 pt-3">
+      <form id="needs-validation" novalidate>
+        <div class="form-group d-flex justify-content-center">
+          <img src="img/img_avatar4.png" id="img-profile" class="img-profile" alt="">
+        </div>
+        <div class="form-group d-flex justify-content-center">
+          <input type="text" class="form-control" placeholder="Url para el avatar." id="profilePic">
+        </div>
+        <div class="form-group">
+          <label for="names">
+            Nombres:</label>
+          <input type="text" class="form-control" id="names" placeholder="Ingrese sus nombres" required
+            pattern="^[a-zA-Z]+" autofocus />
+          <span class="invalid-feedback">Campo inválido.</span>
+        </div>
+        <div class="form-group">
+          <label for="surnames">
+            Apellidos:</label>
+          <input type="text" class="form-control" id="surnames" placeholder="Ingrese sus apellidos" required
+            pattern="^[a-zA-Z]+" autofocus />
+          <span class="invalid-feedback">Campo inválido.</span>
+        </div>
+        <div class="form-group">
+          <label for="date">
+            Fecha de nacimiento:</label>
+          <input type="text" class="form-control" id="date" placeholder="XXXX/XX/XX"
+            pattern="^(19[0-9][0-9]|20[0-4][0-9]|2050)[-/](0?[1-9]|1[0-2])[-/](0?[1-9]|[12][0-9]|3[01])$" autofocus />
+          <span class="invalid-feedback">Campo inválido.</span>
+        </div>
+        <div class="form-group">
+          <label for="email">
+            Email:</label>
+          <input type="email" class="form-control" id="email" placeholder="Ingrese su email" required
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" autofocus />
+          <span class="invalid-feedback">Campo inválido.</span>
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">
+            Número de teléfono:</label>
+          <input type="text" class="form-control" id="phoneNumber" placeholder="Ingrese su número de teléfono"
+            pattern="^[0-9]+" autofocus />
+          <span class="invalid-feedback">Campo inválido.</span>
+        </div>
+        <button type="submit" id="saveChanges" class="btn btn-dark col-12"> Guardar cambios </button>
+      </form>
     </div>
   </div>
   <footer class="text-muted bg-light">

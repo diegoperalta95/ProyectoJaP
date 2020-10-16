@@ -220,13 +220,13 @@ a.custom-card img {
   border-color:#111111;
 }
 
-.profile-thumnail{
+/* Comentarios en product-info.html*/
+
+.profile-thumbnail{
   border-radius:50%;
   width: 60px !important;
   height: 60px !important;
 }
-
-
 
 /*Sistema de puntuación*/
 
@@ -330,6 +330,19 @@ input[type=number] {
   text-decoration: line-through;
 }
 
+
+/* Modal */
+
+.paymentIcon{
+  transition: all 200ms ease;
+  opacity: 0.3;
+}
+
+.paymentIcon.active {
+  opacity: 1;
+  transform: scale(1.1,1.1);
+}
+
 /* Botón para volver arriba */
 
 #top{
@@ -397,51 +410,6 @@ input[type=number] {
   padding-right: 0px;
 }
 
-/* Menu de pestañas (tabs) */
-
-nav > .nav.nav-tabs {
-
-  border: none;
-  color:#fff;
-  background:#272e38;
-  border-radius:0;
-
-}
-
-nav > div a.nav-item.nav-link,
-nav > div a.nav-item.nav-link.active {
-  border: none;
-  padding: 18px 25px;
-  color:#fff;
-  background:#272e38;
-  border-radius:0;
-}
-
-nav > div a.nav-item.nav-link.active:after {
-  content: "";
-  position: relative;
-  bottom: -60px;
-  left: -10%;
-  border: 15px solid transparent;
-  border-top-color: #111111 ;
-}
-
-.tab-content {
-  background:rgb(250, 250, 250);
-  border: 1px solid #ddd;
-  border-top:5px solid #111111;
-  border-bottom:5px solid #111111;
-  padding:30px 25px;
-}
-
-nav > div a.nav-item.nav-link:hover,
-nav > div a.nav-item.nav-link:focus {
-  border: none;
-  background: #111111;
-  color:#fff;
-  border-radius:0;
-  transition: 0.20s linear;
-}
 
 /* Productos relacionados en product info */
 
@@ -473,11 +441,6 @@ nav > div a.nav-item.nav-link:focus {
   box-shadow: 2px 4px 3px 3px #c0c0c069;
 }
 
-#nav-tec-tab, #nav-desc-tab, #nav-tabContent {
-  font-size: .8em !important;
-  
-}
-
 /* filterButton en products.html */
 
 #filterButton{
@@ -496,3 +459,14 @@ nav > div a.nav-item.nav-link:focus {
 .input-group.is-invalid .invalid-feedback{
   display: block;
 }
+
+
+/* Perfil */
+
+.img-profile {
+  width: 100px;
+  height: 100px;
+  border-radius: 50% 50% 50% 50%;
+}
+
+

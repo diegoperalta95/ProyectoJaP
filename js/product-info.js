@@ -78,7 +78,7 @@ function showComments() {
         <div class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-12">
-                        <img src="./img/img_avatar4.png" class="profile-thumnail">
+                        <img src="./img/img_avatar4.png" class="profile-thumbnail">
                         <h7 class="ml-2"> <b>${comment.user}</b></h7>     <small class="text-muted ml-2 fas fa-clock"> ${comment.dateTime}</small>              
                     </div>
                     <div class="col-12">
