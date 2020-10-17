@@ -2,8 +2,11 @@ var currency = "USD";
 var statusDiscount = false;
 var discountValue = 0;
 var prodTotal = 0;
-var totalProductsVal = 0;
 productsArray = [];
+var format = "en-US";
+var prodSubTotal = [];
+var totalProductsVal = 0;
+var shippingVal = 0;
 
 function showCart() {
 
@@ -26,6 +29,8 @@ function showCart() {
             product.count = 1;
         };
 
+        prodSubTotal[i] = parseFloat((product.cost * product.count).toFixed(2));
+
         content = `
         <tr class="text-center">
             <td>
@@ -43,7 +48,7 @@ function showCart() {
                 <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();subTotal(${i},${product.cost});">+</button>
             </td>
             <td id="summary${i}">
-                ${currency} ${(product.cost * product.count).toFixed(2)}
+                ${currency} ${formatNumber(prodSubTotal[i])}
             </td>
             <td>
                 <button type="button" class="btn btn-danger" onclick="deleteProduct(${i})">
@@ -56,18 +61,17 @@ function showCart() {
 
         </tr>       
         `;
+        
         $('#cart-table-list').append(content);
     }
     totalProducts();
     if (statusDiscount) {
         applyDiscount();
     }
-
 }
 
 function deleteProduct(i) {
-    var r = confirm("¿Está seguro que desea eliminar el item?");
-    if (r == true) {
+    if (confirm("¿Está seguro que desea eliminar el item?")) {
         let cart = JSON.parse(localStorage.getItem("Cart"));
         cart['Cars'].splice(i, 1);
         localStorage.setItem('Cart', JSON.stringify(cart));
@@ -76,15 +80,26 @@ function deleteProduct(i) {
 
 }
 
-function subTotal(i, unitCost) {
+function formatNumber(num){
+    return new Intl.NumberFormat(format).format(num);
+}
+
+function subTotal(i, cost) {
     if ($('#quantityCart' + i).val() <= 0) {
         $('#quantityCart' + i).val(1);
-    }
-    document.getElementById("summary" + i).textContent = currency + ' ' + (document.getElementById('quantityCart' + i).value * unitCost).toFixed(2);
+    } else if ($('#quantityCart' + i).val() > 999) {
+        $('#quantityCart' + i).val(999);
+    };
+
+    prodSubTotal[i] = document.getElementById('quantityCart' + i).value * cost;
+    document.getElementById("summary" + i).textContent = currency + ' ' + formatNumber(prodSubTotal[i]);
+
     let cart = JSON.parse(localStorage.getItem('Cart'));
     cart['Cars'][i]['count'] = document.getElementById('quantityCart' + i).value;
     localStorage.setItem('Cart', JSON.stringify(cart));
+
     totalProducts();
+
     if (statusDiscount) {
         applyDiscount();
     };
@@ -93,10 +108,11 @@ function subTotal(i, unitCost) {
 function totalProducts() {
     totalProductsVal = 0;
     for (let i = 0; i < productsArray.length; i++) {
-        totalProductsVal += parseInt(document.getElementById("summary" + i).innerText.split(' ')[1]);
+        totalProductsVal += parseFloat(prodSubTotal[i]);
     }
+
     document.getElementById("currencyTotalProducts").innerText = currency;
-    document.getElementById("totalProducts").innerText = totalProductsVal;
+    document.getElementById("totalProducts").innerText = formatNumber(totalProductsVal);
 
     shipping();
 }
@@ -123,27 +139,25 @@ function shipping() {
 
     $('#shippingInfo').append("El envío demorara entre " + shippingInfo);
 
-    let shipping = 0;
-    let totalProducts = document.getElementById("totalProducts").innerText;
-    shipping = (porcen * totalProducts) / 100;
+    shippingVal = 0;
+    shippingVal = (porcen * totalProductsVal) / 100;
 
     document.getElementById("currencyShipping").innerText = currency;
-    $('#shippingCost').text(shipping);
+    $('#shippingCost').text(formatNumber(shippingVal));
     total();
 }
 
 function total() {
-
     let total = "";
     if (discountValue == 0) {
-        total = (parseFloat($('#shippingCost').text()) + parseFloat($('#totalProducts').text())).toFixed(2);
+        total = (parseFloat(shippingVal) + parseFloat(totalProductsVal));
     } else {
-        total = (parseFloat($('#shippingCost').text()) + parseFloat(prodTotal)).toFixed(2);
+        total = (parseFloat(shippingVal) + parseFloat(prodTotal)).toFixed(2);
     };
     document.getElementById("currencyTotal").innerText = currency;
-    document.getElementById('total').innerText = total;
+    document.getElementById('total').innerText = formatNumber(total);
 
-    $('#totalModal')[0].innerText = currency + ' ' + total
+    $('#totalModal')[0].innerText = currency + ' ' + total;
 
 }
 
@@ -173,9 +187,9 @@ function applyDiscount() {
     let disc = 0 + "." + discountValue;
     let discountPrice = parseFloat(totalProductsVal) * parseFloat(disc);
 
-    prodTotal = parseFloat(parseFloat(document.getElementById('totalProducts').innerHTML) - discountPrice).toFixed(2);
+    prodTotal = parseFloat(parseFloat(totalProductsVal) - discountPrice);
 
-    document.getElementById('discountTotalProducts').innerText = prodTotal;
+    document.getElementById('discountTotalProducts').innerText = formatNumber(prodTotal);
     document.getElementById('currencyDiscountTotalProducts').innerText = currency;
     total();
 }
@@ -189,16 +203,22 @@ function loadProducts() {
         emptyCart();
     }
 
+    var productArray = cart['Cars'].length;
+    var productArrayCheck = 0;
+    
+
     cart['Cars'].forEach(element => {
         getJSONData(PRODUCT_INFO_URL + element.id + ".json").then(function (resultObj) {
             if (resultObj.status === "ok") {
                 productsArray.push(resultObj.data);
                 productsArray[productsArray.length - 1]['count'] = element.count;
-                showCart();
+                productArrayCheck++;
+                if(productArray==productArrayCheck){
+                    showCart();
+                };
             }
         });
     });
-
 }
 
 function emptyCart() {
@@ -234,10 +254,9 @@ function emptyCart() {
 
     $('#confirmButton').attr('Disabled', 'Disabled');
 
-    $('#shippingBox').css({'display':'none'});
+    $('#shippingBox').css({ 'display': 'none' });
 
     alert("No tiene productos en el carrito.");
-
 }
 
 function checkLoggedUser() {
@@ -246,64 +265,30 @@ function checkLoggedUser() {
     }
 }
 
-function verifyShippingInfo(){
-    $('#shippingNumber, #shippingAddress, #shippingAddress2, #shippingCountries').on('change keyup focusout', function(e){
-        if($('#shippingNumber')[0].checkValidity() && $('#shippingAddress')[0].checkValidity() && $('#shippingAddress2')[0].checkValidity() 
-        && $('#shippingCountries')[0].checkValidity()){
-            $('#errorShipping').css({'display':'none'});
-        }else{
-            $('#errorShipping').css({'display':'block'});
+function verifyShippingInfo() {
+    $('#shippingNumber, #shippingAddress, #shippingAddress2, #shippingCountries').on('change keyup focusout', function (e) {
+        if ($('#shippingNumber')[0].checkValidity() && $('#shippingAddress')[0].checkValidity() && $('#shippingAddress2')[0].checkValidity()
+            && $('#shippingCountries')[0].checkValidity()) {
+            $('#errorShipping').css({ 'display': 'none' });
+        } else {
+            $('#errorShipping').css({ 'display': 'block' });
         }
     });
 
     $('#confirmButton').on('click', function (e) {
-        if(!($('#shippingNumber')[0].checkValidity() && $('#shippingAddress')[0].checkValidity() && $('#shippingAddress2')[0].checkValidity() 
-        && $('#shippingCountries')[0].checkValidity())){
+        if (!($('#shippingNumber')[0].checkValidity() && $('#shippingAddress')[0].checkValidity() && $('#shippingAddress2')[0].checkValidity()
+            && $('#shippingCountries')[0].checkValidity())) {
             e.preventDefault();
             e.stopPropagation();
-            $('#errorShipping').css({'display':'block'});
-        }else{
-            $('#errorShipping').css({'display':'none'});
+            $('#errorShipping').css({ 'display': 'block' });
+        } else {
+            $('#errorShipping').css({ 'display': 'none' });
         }
     });
 
 }
 
-document.addEventListener("DOMContentLoaded", function (e) {
-
-    checkLoggedUser();
-
-    loadProducts();
-
-    $('#moneda').on('click', function (e) {
-        if (currency == "USD") {
-            currency = "UYU";
-            $('#moneda').html('Cambiar a USD <i class="fa fa-dollar-sign"></i>');
-        } else {
-            currency = "USD";
-            $('#moneda').html('Cambiar a UYU <i class="fa fa-dollar-sign"></i>');
-        }
-        loadProducts();
-    });
-
-    $("input[name='shipping']").on('change', function (e) {
-        shipping();
-    });
-
-    $('#discount-code').bind("enter", function (e) {
-        discount();
-    });
-
-    $('#discount-code').on('keyup focusout', function (e) {
-        if (e.type != "focusout") {
-            if (e.keyCode == 13) {
-                $(this).trigger("enter");
-            }
-        } else {
-            discount();
-        }
-    });
-
+function detectedSelectedCard(){
     new Cleave('.cardNumber', {
         creditCard: true,
         delimiter: '-',
@@ -331,6 +316,77 @@ document.addEventListener("DOMContentLoaded", function (e) {
             }
         }
     });
+}
+
+function paymentMethodValidation(){
+    let form = document.getElementById('needs-validation');
+
+    form.addEventListener('submit', function (event) {
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+    });
+
+    let formacc = document.getElementById('needs-validation-acc');
+
+    formacc.addEventListener('submit', function (event) {
+        if (formacc.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        formacc.classList.add('was-validated');
+    });
+}
+
+function changeCurrency(){
+    $('#moneda').on('click', function (e) {
+        if (currency == "USD") {
+            currency = "UYU";
+            format = "de-DE";
+            $('#moneda').html('Cambiar a USD <i class="fa fa-dollar-sign"></i>');
+        } else {
+            currency = "USD";
+            format = "en-US";
+            $('#moneda').html('Cambiar a UYU <i class="fa fa-dollar-sign"></i>');
+        }
+        loadProducts();
+    });
+}
+
+function detectDiscountCodeInput(){
+    
+    $('#discount-code').bind("enter", function (e) {
+        discount();
+    });
+
+    $('#discount-code').on('keyup focusout', function (e) {
+        if (e.type != "focusout") {
+            if (e.keyCode == 13) {
+                $(this).trigger("enter");
+            }
+        } else {
+            discount();
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function (e) {
+
+    checkLoggedUser();
+
+    loadProducts();
+
+    changeCurrency();
+
+    $("input[name='shipping']").on('change', function (e) {
+        shipping();
+    });
+
+    detectDiscountCodeInput()
+
+    detectedSelectedCard();    
 
     new Cleave('.expiryMonth', {
         date: true,
@@ -357,26 +413,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         }
     });
 
-    let form = document.getElementById('needs-validation');
+    paymentMethodValidation();
 
-    form.addEventListener('submit', function (event) {
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-    });
-
-    let formacc = document.getElementById('needs-validation-acc');
-
-    formacc.addEventListener('submit', function (event) {
-        if (formacc.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        formacc.classList.add('was-validated');
-    });
-
-
-    verifyShippingInfo()
+    verifyShippingInfo();
 });
