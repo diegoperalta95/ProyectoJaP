@@ -107,7 +107,7 @@
                 </li>
                 <p id="shipping" class="small muted"></p>
                 <p id="shippingInfo" class="small muted"></p>
-                
+
                 <div class="col-md-12" id="shippingBox">
                   <hr style="width: 95%;">
                   <h4>Datos de envío:</h4>
@@ -142,18 +142,19 @@
                     <div class="col-md-12 d-flex justify-content-center">
                       <div class="form-row col-md-12">
                         <div class="col">
-                          <input type="text" class="form-control" id="shippingNumber" minlength="3" placeholder="Número" required autofocus
-                            pattern="^[0-9]+" />
+                          <input type="text" class="form-control" id="shippingNumber" minlength="3" placeholder="Número"
+                            required autofocus pattern="^[0-9]+" />
                         </div>
                         <div class="col">
-                          <input type="text" class="form-control" id="shippingAddress2" minlength="3" placeholder="Esquina" required autofocus
-                            pattern="^[a-zA-Z .,0-9]+" />
+                          <input type="text" class="form-control" id="shippingAddress2" minlength="3"
+                            placeholder="Esquina" required autofocus pattern="^[a-zA-Z .,0-9]+" />
                         </div>
                       </div>
                     </div>
-                </div>
-                
-                  <span class="col-md-12 mt-3 small" id="errorShipping" style="color:red;display:none;">Asegurese de completar todos los campos</span>
+                  </div>
+
+                  <span class="col-md-12 mt-3 small" id="errorShipping" style="color:red;display:none;">Asegurese de
+                    completar todos los campos</span>
                 </div>
                 <hr style="width: 95%;">
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 mt-3">
@@ -201,9 +202,11 @@
               <nav>
                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                   <a class="nav-item nav-link active" id="nav-card-tab" data-toggle="tab" href="#nav-card" role="tab"
-                    aria-controls="nav-card" aria-selected="true">Tarjeta de crédito</a>
+                    aria-controls="nav-card" aria-selected="true" style="width:33%">Tarjeta de crédito</a>
                   <a class="nav-item nav-link" id="nav-acc-tab" data-toggle="tab" href="#nav-acc" role="tab"
-                    aria-controls="nav-acc" aria-selected="false">Cuenta bancaria</a>
+                    aria-controls="nav-acc" aria-selected="false" style="width:33%">Cuenta bancaria</a>
+                    <a class="nav-item nav-link" id="nav-paypal-tab" data-toggle="tab" href="#nav-paypal" role="tab"
+                    aria-controls="nav-paypal" aria-selected="false" style="width:33%">Paypal</a>
                 </div>
               </nav>
               <div class="tab-content py-3 px-3 px-sm-0 col-12" id="nav-tabContent">
@@ -246,8 +249,8 @@
                         <div class="col">
                           <label for="cvCode">
                             Código de seguridad</label>
-                          <input type="password" class="form-control" id="code" placeholder="Código de seguridad"
-                            pattern="^[0-9]{3,4}" required />
+                          <input type="password" class="form-control" id="code" placeholder="CVC" pattern="^[0-9]{3,4}"
+                            required />
                           <div class="invalid-feedback">Campo inválido.</div>
                         </div>
                       </div>
@@ -317,9 +320,16 @@
                   <form id="needs-validation-acc" novalidate>
                     <div class="form-group">
                       <div class="row">
+                        <div class="col">
+                          <label for="name">
+                            Nombre del banco</label>
+                          <input type="text" class="form-control" id="name" placeholder="Nombre del banco"
+                            pattern="^[a-zA-Záéíóúü0-9 ,.]+" required />
+                          <div class="invalid-feedback">Campo inválido.</div>
+                        </div>
                         <div class="col-md-12">
                           <label for="accNumber">
-                            Número de cuenta bancaria:</label>
+                            Número de cuenta bancaria</label>
                           <div class="input-group">
                             <input type="text" class="form-control accNumber" id="accNumber"
                               placeholder="Número de cuenta" required autofocus pattern="^[0-9]+" />
@@ -333,6 +343,27 @@
                     </div>
                     <div class="modal-footer">
                       <button type="submit" id="confirmPaymentAcc" class="btn btn-success col-12"> Confirmar pedido
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane fade list-group" id="nav-paypal" role="tabpanel" aria-labelledby="nav-paypal-tab">
+                  <form id="needs-validation-paypal" novalidate>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="email">
+                            Email</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="email"
+                              placeholder="Email" required autofocus pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                            <span class="invalid-feedback">Campo inválido.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" id="confirmPaymentPaypal" class="btn btn-success col-12"> Confirmar pedido
                       </button>
                     </div>
                   </form>

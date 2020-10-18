@@ -144,6 +144,8 @@ document.addEventListener("DOMContentLoaded", function(e){
         minCount = undefined;
         maxCount = undefined;
 
+        $('#clearRangeFilter').css({'display':'none'});
+
         showProductsList();
     });
     document.getElementById("searchBar").addEventListener("input", function(){
@@ -158,6 +160,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 
         if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
             minCount = parseInt(minCount);
+            $('#clearRangeFilter').css({'display':'block'});
         }
         else{
             minCount = undefined;
@@ -165,11 +168,15 @@ document.addEventListener("DOMContentLoaded", function(e){
 
         if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
             maxCount = parseInt(maxCount);
+            $('#clearRangeFilter').css({'display':'block'});
         }
         else{
             maxCount = undefined;
         }
 
+        if(maxCount == undefined && minCount == undefined){
+            $('#clearRangeFilter').css({'display':'none'});
+        }
 
         showProductsList();
     });

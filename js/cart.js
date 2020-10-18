@@ -338,6 +338,16 @@ function paymentMethodValidation(){
         }
         formacc.classList.add('was-validated');
     });
+
+    let formpaypal = document.getElementById('needs-validation-paypal');
+
+    formpaypal.addEventListener('submit', function (event) {
+        if (formpaypal.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        formpaypal.classList.add('was-validated');
+    });
 }
 
 function changeCurrency(){
