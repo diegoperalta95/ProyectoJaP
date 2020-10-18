@@ -59,12 +59,12 @@ function showProduct() {
     showRelatedProducts()
 }
 
-function checkIfArticleExistsInCart(){
+function checkIfArticleExistsInCart() {
     let cart = JSON.parse(localStorage.getItem('Cart'));
-    cart['Cars'].forEach(function(e){
-        if(e.id==CarId){
-            $('#addToCart').css({'display':'none'});
-            $('#alreadyInCart').css({'display':'block'});
+    cart['Cars'].forEach(function (e) {
+        if (e.id == CarId) {
+            $('#addToCart').css({ 'display': 'none' });
+            $('#alreadyInCart').css({ 'display': 'block' });
         }
     });
 }
@@ -78,7 +78,7 @@ function showComments() {
         <div class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-12">
-                        <img src="./img/img_avatar4.png" class="profile-thumbnail">
+                        <img src="${comment.profilePic ? comment.profilePic : './img/img_avatar4.png'}" class="profile-thumbnail">
                         <h7 class="ml-2"> <b>${comment.user}</b></h7>     <small class="text-muted ml-2 fas fa-clock"> ${comment.dateTime}</small>              
                     </div>
                     <div class="col-12">
@@ -105,7 +105,7 @@ function showComments() {
 }
 
 function limpiarCampos() {
-    if (localStorage.getItem('Name')) {
+    if (JSON.parse(localStorage.getItem('Profile')).name != "Invitado") {
         $('input[name=rating]').prop('checked', false)
     }
     document.getElementById('comentario').value = "";
@@ -180,7 +180,16 @@ function addToCart() {
     localStorage.setItem('Cart', JSON.stringify(cart));
 
     checkIfArticleExistsInCart()
+}
 
+function showLogBox() {
+    document.getElementById("comment-container").innerHTML = `
+        <hr>
+        <div style="padding-left: 20px;padding-right: 20px;" class="d-flex justify-content-center">
+        <h4>Logueate para comentar sobre este artículo! <a href="/index.html">Click aquí</a></h4>
+        </div>
+    `
+    document.getElementById("comment-container").style = "display:block";
 }
 
 document.addEventListener("DOMContentLoaded", function (e) {
@@ -199,9 +208,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
             ProductArray = resultObj.data;
             showProduct();
             checkIfArticleExistsInCart()
-            if (localStorage.getItem('Name') == null || localStorage.getItem('Name') == undefined){
-                $('#addToCart').css({'display':'none'});
-                $('#alreadyInCart').css({'display':'none'});
+            if (JSON.parse(localStorage.getItem('Profile')).name == null || JSON.parse(localStorage.getItem('Profile')).name || JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
+                $('#addToCart').css({ 'display': 'none' });
+                $('#alreadyInCart').css({ 'display': 'none' });
             };
         };
     });
@@ -211,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         showComments();
     }
 
-    if (localStorage.getItem("Name")) {
+    if (JSON.parse(localStorage.getItem("Profile")).name != "Invitado") {
         showCommentBox();
 
         document.getElementById('comentar').addEventListener('click', function () {
@@ -221,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 return false;
             }
 
-            if (localStorage.getItem("Name")) {
+            if (localStorage.getItem("Profile")) {
                 let now = new Date()
                 let dateTime = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
@@ -238,10 +247,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 }
 
                 let newComment = {
-                    user: localStorage.getItem('Name'),
+                    user: JSON.parse(localStorage.getItem('Profile')).name,
                     score: score,
                     description: document.getElementById('comentario').value,
-                    dateTime: dateTime
+                    dateTime: dateTime,
+                    profilePic: JSON.parse(localStorage.getItem('Profile')).profilePic
                 }
 
                 CommentsArray.push(newComment);
@@ -252,6 +262,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 alert("Usted debe estar logueado para realizar tal acción.");
             }
         });
-    };
+    } else {
+        showLogBox();
+    }
 
 });

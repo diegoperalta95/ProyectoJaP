@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     loadProfile();
 
+    if (JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
+        window.location.href = "/home.html";
+    }
+
     let form = document.getElementById('needs-validation');
 
     form.addEventListener('submit', function(event) {
@@ -38,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         event.stopPropagation();
       }
       saveChanges();
-      form.classList.add('was-validated');
-      
+      form.classList.add('was-validated');   
     });
 });

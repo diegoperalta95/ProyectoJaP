@@ -3,11 +3,12 @@ const PUBLISH_PRODUCT_URL = "https://japdevdep.github.io/ecommerce-api/product/p
 const CATEGORY_INFO_URL = "https://japdevdep.github.io/ecommerce-api/category/1234.json";
 const PRODUCTS_URL = "https://diegoperalta95.github.io/ecommerce-api/products/cars/all.json";
 const PRODUCT_INFO_URL = "https://diegoperalta95.github.io/ecommerce-api/products/cars/";
-const PRODUCT_INFO_COMMENTS_URL = "https://japdevdep.github.io/ecommerce-api/product/5678-comments.json";
+const PRODUCT_INFO_COMMENTS_URL = "https://diegoperalta95.github.io/ecommerce-api/comments/cars/all.json";
 const CART_INFO_URL = "https://diegoperalta95.github.io/ecommerce-api/cart/cart.json";
 const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 const COUNTRIES = "https://diegoperalta95.github.io/ecommerce-api/countries/all.json";
 const COUNTRY = "https://restcountries.eu/rest/v2/name/";
+const PROFILES = "https://diegoperalta95.github.io/ecommerce-api/profile/all.json";
 
 
 var showSpinner = function(){
@@ -63,7 +64,15 @@ document.addEventListener("DOMContentLoaded", function(e){
     $('html, body').animate({scrollTop:0}, '300');
   });
 
-  if (localStorage.getItem('Name') != null || localStorage.getItem('Name') != undefined){
+  if (localStorage.getItem('Profile') == null){
+    let profile = {};
+    profile.name = "Invitado";
+    profile.surname = "";
+    profile.date = "";
+    profile.email = "";
+    profile.phoneNumber = "";
+    profile.profilePic = "./img/img_avatar4.png";
+    localStorage.setItem('Profile',JSON.stringify(profile));
     createCartIfUserLogged();
   };
   

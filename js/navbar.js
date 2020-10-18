@@ -43,20 +43,22 @@ function showNavBar(){
         </ul>
       </div>`
     
-    var userLogged = localStorage.getItem("Name");
+    var userLogged = JSON.parse(localStorage.getItem("Profile"));
     var infouser = document.getElementById("menuUser");
-    
+    var userLoggedShortName = "";
+
     if(userLogged){
-      if(userLogged.length>11){
-        userLogged = userLogged.slice(0,11) + `...`;
+      if(userLogged.name.length>11){
+        userLoggedShortName = userLogged.name.slice(0,11) + `...`;
       }
     } 
 
-    if(userLogged){
-      infouser.innerHTML += '<img class="avatar" src="img/img_avatar4.png"> </img> Bienvenido ' + userLogged;
+    if(userLogged.name != "Invitado"){
+      infouser.innerHTML += `<img class="avatar" src="${userLogged.profilePic ? userLogged.profilePic : './img/img_avatar4.png'}"> 
+      </img> Bienvenido ${userLoggedShortName ? userLoggedShortName : userLogged.name}`;
       document.getElementById("register").remove();
     }else{
-      infouser.innerHTML += '<img class="avatar" src="img/img_avatar4.png"> </img> Bienvenido Invitado';
+      infouser.innerHTML += `<img class="avatar" src="${userLogged.profilePic}"> </img> Bienvenido ${userLogged.name}`;
       document.getElementById("cart").remove();
       document.getElementById("profileLink").remove();
       document.getElementById("logoutLink").remove();    

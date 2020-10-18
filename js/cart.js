@@ -260,7 +260,7 @@ function emptyCart() {
 }
 
 function checkLoggedUser() {
-    if (localStorage.getItem('Name') == null || localStorage.getItem('Name') == undefined) {
+    if (JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
         window.location.href = "/home.html";
     }
 }
