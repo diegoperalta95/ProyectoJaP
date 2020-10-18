@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     $('html, body').animate({scrollTop:0}, '300');
   });
 
-  if (localStorage.getItem('Profile') == null){
+  if (JSON.parse(localStorage.getItem('Profile')) == null || JSON.parse(localStorage.getItem('Profile')) == undefined){
     let profile = {};
     profile.name = "Invitado";
     profile.surname = "";

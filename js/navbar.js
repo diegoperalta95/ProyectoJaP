@@ -1,13 +1,13 @@
-function actualPath($path){
-  if(window.location.pathname.includes($path)){
+function actualPath($path) {
+  if (window.location.pathname.includes($path)) {
     return true;
   }
   return false;
 }
 
-function showNavBar(){
+function showNavBar() {
 
-    document.getElementById("navbar").innerHTML += `
+  document.getElementById("navbar").innerHTML += `
       <div class="navbar-brand disabled">e-COMMERCE</div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -42,32 +42,32 @@ function showNavBar(){
           </li>
         </ul>
       </div>`
-    
-    var userLogged = JSON.parse(localStorage.getItem("Profile"));
-    var infouser = document.getElementById("menuUser");
-    var userLoggedShortName = "";
 
-    if(userLogged){
-      if(userLogged.name.length>11){
-        userLoggedShortName = userLogged.name.slice(0,11) + `...`;
-      }
-    } 
+  var userLogged = JSON.parse(localStorage.getItem("Profile"));
+  var infouser = document.getElementById("menuUser");
+  var userLoggedShortName = "";
 
-    if(userLogged.name != "Invitado"){
-      infouser.innerHTML += `<img class="avatar" src="${userLogged.profilePic ? userLogged.profilePic : './img/img_avatar4.png'}"> 
+  if (userLogged.name.length > 11) {
+    userLoggedShortName = userLogged.name.slice(0, 11) + `...`;
+  }
+
+  if (userLogged.name != "Invitado") {
+    infouser.innerHTML += `<img class="avatar" src="${userLogged.profilePic ? userLogged.profilePic : './img/img_avatar4.png'}"> 
       </img> Bienvenido ${userLoggedShortName ? userLoggedShortName : userLogged.name}`;
-      document.getElementById("register").remove();
-    }else{
-      infouser.innerHTML += `<img class="avatar" src="${userLogged.profilePic}"> </img> Bienvenido ${userLogged.name}`;
-      document.getElementById("cart").remove();
-      document.getElementById("profileLink").remove();
-      document.getElementById("logoutLink").remove();    
-    };
+    document.getElementById("register").remove();
+  } else {
+    infouser.innerHTML += `<img class="avatar" src="${userLogged.profilePic}"> </img> Bienvenido ${userLogged.name}`;
+    document.getElementById("cart").remove();
+    document.getElementById("profileLink").remove();
+    document.getElementById("logoutLink").remove();
+  };
 
 }
 
-showNavBar();
 
-document.addEventListener("DOMContentLoaded", function(e){ 
+
+document.addEventListener("DOMContentLoaded", function (e) {
+
+  showNavBar();
 
 });
