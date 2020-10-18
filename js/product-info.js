@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             ProductArray = resultObj.data;
             showProduct();
             checkIfArticleExistsInCart()
-            if (JSON.parse(localStorage.getItem('Profile')).name == null || JSON.parse(localStorage.getItem('Profile')).name || JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
+            if (JSON.parse(localStorage.getItem('Profile')).name == null || JSON.parse(localStorage.getItem('Profile')).name == undefined || JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
                 $('#addToCart').css({ 'display': 'none' });
                 $('#alreadyInCart').css({ 'display': 'none' });
             };
