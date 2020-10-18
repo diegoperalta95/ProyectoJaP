@@ -8,47 +8,47 @@ var currentSortCriteria = undefined;
 var minCount = undefined;
 var maxCount = undefined;
 var wordFilter = undefined;
+var type = "list";
 
-function sortProducts(criteria, array){
+function sortProducts(criteria, array) {
     let result = [];
-    if (criteria === ORDER_ASC_BY_NAME)
-    {
-        result = array.sort(function(a, b) {
-            if ( a.name < b.name ){ return -1; }
-            if ( a.name > b.name ){ return 1; }
+    if (criteria === ORDER_ASC_BY_NAME) {
+        result = array.sort(function (a, b) {
+            if (a.name < b.name) { return -1; }
+            if (a.name > b.name) { return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_DESC_BY_NAME){
-        result = array.sort(function(a, b) {
-            if ( a.name > b.name ){ return -1; }
-            if ( a.name < b.name ){ return 1; }
+    } else if (criteria === ORDER_DESC_BY_NAME) {
+        result = array.sort(function (a, b) {
+            if (a.name > b.name) { return -1; }
+            if (a.name < b.name) { return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_DESC_BY_PROD_COST){
-        result = array.sort(function(a, b) {
+    } else if (criteria === ORDER_DESC_BY_PROD_COST) {
+        result = array.sort(function (a, b) {
             let aCost = parseInt(a.cost);
             let bCost = parseInt(b.cost);
 
-            if ( aCost > bCost ){ return -1; }
-            if ( aCost < bCost ){ return 1; }
+            if (aCost > bCost) { return -1; }
+            if (aCost < bCost) { return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_ASC_BY_PROD_COST){
-        result = array.sort(function(a, b) {
+    } else if (criteria === ORDER_ASC_BY_PROD_COST) {
+        result = array.sort(function (a, b) {
             let aCost = parseInt(a.cost);
             let bCost = parseInt(b.cost);
 
-            if ( aCost < bCost ){ return -1; }
-            if ( aCost > bCost ){ return 1; }
+            if (aCost < bCost) { return -1; }
+            if (aCost > bCost) { return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_DESC_BY_REL){
-        result = array.sort(function(a, b) {
+    } else if (criteria === ORDER_DESC_BY_REL) {
+        result = array.sort(function (a, b) {
             let aSold = parseInt(a.soldCount);
             let bSold = parseInt(b.soldCount);
 
-            if ( aSold > bSold ){ return -1; }
-            if ( aSold < bSold ){ return 1; }
+            if (aSold > bSold) { return -1; }
+            if (aSold < bSold) { return 1; }
             return 0;
         });
     }
@@ -56,52 +56,72 @@ function sortProducts(criteria, array){
     return result;
 }
 
-function showProductsList(){
+function showProductsList() {
 
     let htmlContentToAppend = "";
-    for(let i = 0; i < currentProductsArray.length; i++){
+    for (let i = 0; i < currentProductsArray.length; i++) {
         let product = currentProductsArray[i];
 
         let name = product.name.toUpperCase();
         let desc = product.description.toUpperCase();
 
-        if( (wordFilter == undefined) || (name.includes(wordFilter)) || (desc.includes(wordFilter))){
-            
-            if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
-                ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
+        if ((wordFilter == undefined) || (name.includes(wordFilter)) || (desc.includes(wordFilter))) {
 
-                htmlContentToAppend += `
-                <a href="product-info.html" class="list-group-item list-group-item-action" onclick="setCarInLS(${product.id})">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="${product.imgSrc}" alt="${product.description}" class="img-thumbnail">
-                        </div>
-                        <div class="col">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h4 class="mb-1">${product.name}</h4>
-                                <small>${product.soldCount} Vendidos</small>
+            if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
+                ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) {
+
+                if(type == "list"){
+                    htmlContentToAppend += `
+                    <a href="product-info.html" class="list-group-item list-group-item-action hola" onclick="setCarInLS(${product.id})">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="${product.imgSrc}" alt="${product.description}" class="img-thumbnail">
                             </div>
-                            <p class="mb-1">${product.description}</p>
-                            <br>
-                            <p> <b>Precio:  </b><span class="numberFormat">${product.cost}</span> ${product.currency}</p>
+                            <div class="col">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h4 class="mb-1">${product.name}</h4>
+                                    <small>${product.soldCount} Vendidos</small>
+                                </div>
+                                <p class="mb-1">${product.description}</p>
+                                <br>
+                                <p> <b>Precio:  </b><span class="numberFormat">${product.cost}</span> ${product.currency}</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                `
+                    </a>
+                    `
+                }else if(type == "grid"){
+                    htmlContentToAppend += `
+                    <a href="product-info.html" class="cCard" onclick="setCarInLS(${product.id})">
+                        <div class="cCard-image" style="background:url('${product.imgSrc}')"></div>
+                        <div class="cCard-text">
+                            <h5>${product.name}</h5>
+                            <p class="small">${product.description.length > 210 ? (product.description.slice(0, 210) + '...') : product.description}</p>
+                        </div>
+                        <div class="cCard-stats">
+                            <div class="stat">
+                            <div class="value">${product.cost} USD</div>
+                            </div>
+                            <div class="stat">
+                            <div class="value">${product.soldCount} Vendidos</div>
+                            </div>
+                        </div>
+                    </a>
+                    `
+                }       
             }
         }
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
     }
 }
 
-function setCarInLS(id){
-    localStorage.setItem("Auto",id);
+function setCarInLS(id) {
+    localStorage.setItem("Auto", id);
 }
 
-function sortAndShowProducts(sortCriteria, productsArray){
+function sortAndShowProducts(sortCriteria, productsArray) {
     currentSortCriteria = sortCriteria;
 
-    if(productsArray != undefined){
+    if (productsArray != undefined) {
         currentProductsArray = productsArray;
     }
 
@@ -110,78 +130,87 @@ function sortAndShowProducts(sortCriteria, productsArray){
     showProductsList();
 }
 
-document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(PRODUCTS_URL).then(function(resultObj){
-        if (resultObj.status === "ok"){
+document.addEventListener("DOMContentLoaded", function (e) {
+    getJSONData(PRODUCTS_URL).then(function (resultObj) {
+        if (resultObj.status === "ok") {
             sortAndShowProducts(ORDER_ASC_BY_NAME, resultObj.data);
         }
     });
 
-    document.getElementById("sortAsc").addEventListener("click", function(){
+    document.getElementById("sortAsc").addEventListener("click", function () {
         sortAndShowProducts(ORDER_ASC_BY_NAME);
     });
 
-    document.getElementById("sortDesc").addEventListener("click", function(){
+    document.getElementById("sortDesc").addEventListener("click", function () {
         sortAndShowProducts(ORDER_DESC_BY_NAME);
     });
 
-    document.getElementById("sortByCostDesc").addEventListener("click", function(){
+    document.getElementById("sortByCostDesc").addEventListener("click", function () {
         sortAndShowProducts(ORDER_DESC_BY_PROD_COST);
     });
 
-    document.getElementById("sortByCostAsc").addEventListener("click", function(){
+    document.getElementById("sortByCostAsc").addEventListener("click", function () {
         sortAndShowProducts(ORDER_ASC_BY_PROD_COST);
     });
 
-    document.getElementById("sortRel").addEventListener("click", function(){
+    document.getElementById("sortRel").addEventListener("click", function () {
         sortAndShowProducts(ORDER_DESC_BY_REL);
     });
 
-    document.getElementById("clearRangeFilter").addEventListener("click", function(){
+    document.getElementById("clearRangeFilter").addEventListener("click", function () {
         document.getElementById("rangeFilterCountMin").value = "";
         document.getElementById("rangeFilterCountMax").value = "";
 
         minCount = undefined;
         maxCount = undefined;
 
-        $('#clearRangeFilter').css({'display':'none'});
+        $('#clearRangeFilter').css({ 'display': 'none' });
 
         showProductsList();
     });
-    document.getElementById("searchBar").addEventListener("input", function(){
+    document.getElementById("searchBar").addEventListener("input", function () {
         wordFilter = document.getElementById("searchBar").value.toUpperCase();
 
         showProductsList();
     });
 
-    $('#rangeFilterCountMin, #rangeFilterCountMax').on('keyup',function(e){
+    $('#sortGrid').on('click',function(e){
+        type = "grid";
+        showProductsList();
+    });
+
+    $('#sortList').on('click',function(e){
+        type = "list";
+        showProductsList();
+    });
+
+    $('#rangeFilterCountMin, #rangeFilterCountMax').on('keyup', function (e) {
         minCount = document.getElementById("rangeFilterCountMin").value;
         maxCount = document.getElementById("rangeFilterCountMax").value;
 
-        if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
+        if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0) {
             minCount = parseInt(minCount);
-            $('#clearRangeFilter').css({'display':'block'});
+            $('#clearRangeFilter').css({ 'display': 'block' });
         }
-        else{
+        else {
             minCount = undefined;
         }
 
-        if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
+        if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0) {
             maxCount = parseInt(maxCount);
-            $('#clearRangeFilter').css({'display':'block'});
+            $('#clearRangeFilter').css({ 'display': 'block' });
         }
-        else{
+        else {
             maxCount = undefined;
         }
 
-        if(maxCount == undefined && minCount == undefined){
-            $('#clearRangeFilter').css({'display':'none'});
+        if (maxCount == undefined && minCount == undefined) {
+            $('#clearRangeFilter').css({ 'display': 'none' });
         }
 
         showProductsList();
     });
 
 });
-                
-                
-                
+
+
