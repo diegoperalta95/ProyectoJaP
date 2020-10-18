@@ -319,34 +319,34 @@ function detectedSelectedCard(){
 }
 
 function paymentMethodValidation(){
-    let form = document.getElementById('needs-validation');
+    let formCreditCard = document.getElementById('needs-validation');
 
-    form.addEventListener('submit', function (event) {
-        if (form.checkValidity() === false) {
+    formCreditCard.addEventListener('submit', function (event) {
+        if (formCreditCard.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-        form.classList.add('was-validated');
+        formCreditCard.classList.add('was-validated');
     });
 
-    let formacc = document.getElementById('needs-validation-acc');
+    let formAcc = document.getElementById('needs-validation-acc');
 
-    formacc.addEventListener('submit', function (event) {
-        if (formacc.checkValidity() === false) {
+    formAcc.addEventListener('submit', function (event) {
+        if (formAcc.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-        formacc.classList.add('was-validated');
+        formAcc.classList.add('was-validated');
     });
 
-    let formpaypal = document.getElementById('needs-validation-paypal');
+    let formPaypal = document.getElementById('needs-validation-paypal');
 
-    formpaypal.addEventListener('submit', function (event) {
-        if (formpaypal.checkValidity() === false) {
+    formPaypal.addEventListener('submit', function (event) {
+        if (formPaypal.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-        formpaypal.classList.add('was-validated');
+        formPaypal.classList.add('was-validated');
     });
 }
 
@@ -410,6 +410,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     phone: true,
                     phoneRegionCode: resultObj.data[0].alpha2Code
                 });
+                $('#phoneNumber').prop('disabled',false);
+            }else{
+                $('#phoneNumber').prop('disabled',true);
             }
         });
     });
