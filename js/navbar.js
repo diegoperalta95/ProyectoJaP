@@ -64,8 +64,6 @@ function showNavBar() {
 
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function (e) {
 
   showNavBar();

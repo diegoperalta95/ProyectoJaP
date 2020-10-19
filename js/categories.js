@@ -70,14 +70,14 @@ function showCategoriesList() {
                     <a href="category-info.html" class="list-group-item list-group-item-action">
                         <div class="row">
                             <div class="col-3">
-                                <img src="` + category.imgSrc + `" alt="` + category.description + `" class="img-thumbnail">
+                                <img src="${category.imgSrc}" alt="${category.description}" class="img-thumbnail">
                             </div>
                             <div class="col">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h4 class="mb-1">`+ category.name + `</h4>
-                                    <small class="text-muted">` + category.productCount + ` artículos</small>
+                                    <h4 class="mb-1">${category.name}</h4>
+                                    <small class="text-muted">${category.productCount} artículos</small>
                                 </div>
-                                <p class="mb-1">` + category.description + `</p>
+                                <p class="mb-1">${category.description}</p>
                             </div>
                         </div>
                     </a>
@@ -118,13 +118,7 @@ function sortAndShowCategories(sortCriteria, categoriesArray) {
     showCategoriesList();
 }
 
-document.addEventListener("DOMContentLoaded", function (e) {
-    getJSONData(CATEGORIES_URL).then(function (resultObj) {
-        if (resultObj.status === "ok") {
-            sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
-        }
-    });
-
+function filterListeners(){
     document.getElementById("sortAsc").addEventListener("click", function () {
         sortAndShowCategories(ORDER_ASC_BY_NAME);
     });
@@ -170,8 +164,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
         showCategoriesList();
     });
 
-
-
     $('#rangeFilterCountMin, #rangeFilterCountMax').on('keyup', function (e) {
         minCount = document.getElementById("rangeFilterCountMin").value;
 
@@ -198,5 +190,15 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         showCategoriesList();
     });
+}
+
+document.addEventListener("DOMContentLoaded", function (e) {
+    getJSONData(CATEGORIES_URL).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
+        }
+    });
+
+    filterListeners();
 
 });
