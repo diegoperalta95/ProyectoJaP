@@ -156,8 +156,8 @@ function total() {
     };
     document.getElementById("currencyTotal").innerText = currency;
     document.getElementById('total').innerText = formatNumber(total);
-
-    $('#totalModal')[0].innerText = currency + ' ' + total;
+    
+    $('#totalModal')[0].innerText = currency + ' ' + formatNumber(total);
 
 }
 
@@ -285,7 +285,6 @@ function verifyShippingInfo() {
             $('#errorShipping').css({ 'display': 'none' });
         }
     });
-
 }
 
 function detectedSelectedCard(){
