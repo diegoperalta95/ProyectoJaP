@@ -8,7 +8,7 @@ function actualPath($path) {
 function showNavBar() {
 
   document.getElementById("navbar").innerHTML += `
-      <div class="navbar-brand disabled">e-COMMERCE</div>
+      <div class="navbar-brand"><a href="home.html">e-COMMERCE</a></div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
