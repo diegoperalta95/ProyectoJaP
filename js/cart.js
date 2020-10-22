@@ -179,7 +179,7 @@ function validDiscount(num) {
     $('#currencyDiscountTotalProducts').css({ 'color': 'green' });
     $('#discountTotalProducts').css({ 'color': 'green' });
 
-    document.getElementById("discount").innerText = "20%!";
+    document.getElementById("discount").innerText = num+"%!";
 
     discountValue = num;
     applyDiscount();
