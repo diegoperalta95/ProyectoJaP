@@ -61,7 +61,7 @@ function showCart() {
 
         </tr>       
         `;
-        
+
         $('#cart-table-list').append(content);
     }
     totalProducts();
@@ -80,7 +80,7 @@ function deleteProduct(i) {
 
 }
 
-function formatNumber(num){
+function formatNumber(num) {
     return new Intl.NumberFormat(format).format(num);
 }
 
@@ -156,7 +156,7 @@ function total() {
     };
     document.getElementById("currencyTotal").innerText = currency;
     document.getElementById('total').innerText = formatNumber(total);
-    
+
     $('#totalModal')[0].innerText = currency + ' ' + formatNumber(total);
 
 }
@@ -166,19 +166,23 @@ function discount() {
     if (code != "jaimito") {
         $('#discount-code').addClass('is-invalid');
     } else {
-        $('#discount-code').removeClass('is-invalid');
-        $('#discount-code').addClass('is-valid');
-        $('#discount-code').attr('disabled', 'disabled');
-        $("#totalProducts").addClass('crossOut');
-        $("#currencyTotalProducts").addClass('crossOut');
-        $('#currencyDiscountTotalProducts').css({ 'color': 'green' });
-        $('#discountTotalProducts').css({ 'color': 'green' });
-
-        document.getElementById("discount").innerText = "20%!";
-
-        discountValue = 20;
-        applyDiscount();
+        validDiscount(20);
     }
+}
+
+function validDiscount(num) {
+    $('#discount-code').removeClass('is-invalid');
+    $('#discount-code').addClass('is-valid');
+    $('#discount-code').attr('disabled', 'disabled');
+    $("#totalProducts").addClass('crossOut');
+    $("#currencyTotalProducts").addClass('crossOut');
+    $('#currencyDiscountTotalProducts').css({ 'color': 'green' });
+    $('#discountTotalProducts').css({ 'color': 'green' });
+
+    document.getElementById("discount").innerText = "20%!";
+
+    discountValue = num;
+    applyDiscount();
 }
 
 function applyDiscount() {
@@ -205,7 +209,6 @@ function loadProducts() {
 
     var productArray = cart['Cars'].length;
     var productArrayCheck = 0;
-    
 
     cart['Cars'].forEach(element => {
         getJSONData(PRODUCT_INFO_URL + element.id + ".json").then(function (resultObj) {
@@ -213,7 +216,7 @@ function loadProducts() {
                 productsArray.push(resultObj.data);
                 productsArray[productsArray.length - 1]['count'] = element.count;
                 productArrayCheck++;
-                if(productArray==productArrayCheck){
+                if (productArray == productArrayCheck) {
                     showCart();
                 };
             }
@@ -287,7 +290,7 @@ function verifyShippingInfo() {
     });
 }
 
-function detectedSelectedCard(){
+function detectedSelectedCard() {
     new Cleave('.cardNumber', {
         creditCard: true,
         delimiter: '-',
@@ -317,7 +320,7 @@ function detectedSelectedCard(){
     });
 }
 
-function paymentMethodValidation(){
+function paymentMethodValidation() {
     let formCreditCard = document.getElementById('needs-validation');
 
     formCreditCard.addEventListener('submit', function (event) {
@@ -349,7 +352,7 @@ function paymentMethodValidation(){
     });
 }
 
-function changeCurrency(){
+function changeCurrency() {
     $('#moneda').on('click', function (e) {
         if (currency == "USD") {
             currency = "UYU";
@@ -364,8 +367,8 @@ function changeCurrency(){
     });
 }
 
-function detectDiscountCodeInput(){
-    
+function detectDiscountCodeInput() {
+
     $('#discount-code').bind("enter", function (e) {
         discount();
     });
@@ -395,7 +398,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
     detectDiscountCodeInput()
 
-    detectedSelectedCard();    
+    detectedSelectedCard();
 
     new Cleave('.expiryMonth', {
         date: true,
@@ -409,9 +412,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     phone: true,
                     phoneRegionCode: resultObj.data[0].alpha2Code
                 });
-                $('#phoneNumber').prop('disabled',false);
-            }else{
-                $('#phoneNumber').prop('disabled',true);
+                $('#phoneNumber').prop('disabled', false);
+            } else {
+                $('#phoneNumber').prop('disabled', true);
             }
         });
     });
