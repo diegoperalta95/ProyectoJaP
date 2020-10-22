@@ -7,6 +7,7 @@ var format = "en-US";
 var prodSubTotal = [];
 var totalProductsVal = 0;
 var shippingVal = 0;
+var cardType = null;
 
 function showCart() {
 
@@ -179,7 +180,7 @@ function validDiscount(num) {
     $('#currencyDiscountTotalProducts').css({ 'color': 'green' });
     $('#discountTotalProducts').css({ 'color': 'green' });
 
-    document.getElementById("discount").innerText = num+"%!";
+    document.getElementById("discount").innerText = num + "%!";
 
     discountValue = num;
     applyDiscount();
@@ -298,36 +299,59 @@ function detectedSelectedCard() {
             if (type === 'visa') {
                 $('.fa-cc-visa').addClass('active');
                 $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+                cardType = "visa";
             } else if (type === 'mastercard') {
                 $('.fa-cc-mastercard').addClass('active');
                 $('.fa-cc-visa,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+                cardType = "mastercard";
             } else if (type === 'amex') {
                 $('.fa-cc-amex').addClass('active');
                 $('.fa-cc-mastercard,.fa-cc-visa,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+                cardType = "amex";
             } else if (type === 'diners') {
                 $('.fa-cc-diners-club').addClass('active');
                 $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-visa,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+                cardType = "diners";
             } else if (type === 'jcb') {
                 $('.fa-cc-jcb').addClass('active');
                 $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-visa,.fa-cc-discover').removeClass('active');
+                cardType = "jcb";
             } else if (type === 'discover') {
                 $('.fa-cc-discover').addClass('active');
                 $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-visa').removeClass('active');
+                cardType = "discover";
             } else {
                 $('.fa-cc-visa,.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
-            }
+                cardType = null;
+            };
         }
     });
+}
+
+function checkCardPaymentMethodAvailable() {
+    if (cardType == 'visa' || cardType == 'mastercard' || cardType == 'jcb' || cardType == 'discover') {
+        $('#cardNumber').attr('pattern', '[0-9-]{19}');
+    } else if (cardType == 'diners') {
+        $('#cardNumber').attr('pattern', '[0-9-]{16}');
+    } else if (cardType == 'amex') {
+        $('#cardNumber').attr('pattern', '[0-9-]{17}');
+    } else {
+        $('#cardNumber').attr('pattern', '[0-9-]{30}');
+    };
 }
 
 function paymentMethodValidation() {
     let formCreditCard = document.getElementById('needs-validation');
 
+    $('#cardNumber').on('change keyup',function(e){
+        checkCardPaymentMethodAvailable();
+    });
+
     formCreditCard.addEventListener('submit', function (event) {
         if (formCreditCard.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }
+        };
         formCreditCard.classList.add('was-validated');
     });
 
@@ -337,7 +361,7 @@ function paymentMethodValidation() {
         if (formAcc.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }
+        };
         formAcc.classList.add('was-validated');
     });
 
