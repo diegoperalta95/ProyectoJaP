@@ -66,8 +66,9 @@ function showCategoriesList() {
 
 
                 if (type == "list") {
+                    $('#cat-list-container').addClass('cat-list-container');
                     htmlContentToAppend += `
-                    <a href="category-info.html" class="list-group-item list-group-item-action">
+                    <a href="category-info.html">
                         <div class="row">
                             <div class="col-3">
                                 <img src="${category.imgSrc}" alt="${category.description}" class="img-thumbnail">
@@ -83,6 +84,7 @@ function showCategoriesList() {
                     </a>
                     `
                 } else if (type == "grid") {
+                    $('#cat-list-container').removeClass('cat-list-container');
                     htmlContentToAppend += `
                     <a href="category-info.html" class="cCard"">
                         <div class="cCard-image" style="background:url('${category.imgSrc}')"></div>

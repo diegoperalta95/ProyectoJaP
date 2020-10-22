@@ -71,8 +71,9 @@ function showProductsList() {
                 ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) {
 
                 if(type == "list"){
+                    $('#cat-list-container').addClass('cat-list-container');
                     htmlContentToAppend += `
-                    <a href="product-info.html" class="list-group-item list-group-item-action hola" onclick="setCarInLS(${product.id})">
+                    <a href="product-info.html" onclick="setCarInLS(${product.id})">
                         <div class="row">
                             <div class="col-3">
                                 <img src="${product.imgSrc}" alt="${product.description}" class="img-thumbnail">
@@ -90,6 +91,7 @@ function showProductsList() {
                     </a>
                     `
                 }else if(type == "grid"){
+                    $('#cat-list-container').removeClass('cat-list-container');
                     htmlContentToAppend += `
                     <a href="product-info.html" class="cCard" onclick="setCarInLS(${product.id})">
                         <div class="cCard-image" style="background:url('${product.imgSrc}')"></div>
