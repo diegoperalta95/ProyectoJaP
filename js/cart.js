@@ -235,7 +235,6 @@ function emptyCart() {
     $('#currencyTotal').empty();
 
     $('#radioEnvio').attr('Disabled', 'Disabled');
-    $('#divRadioEnvio').attr('Disabled', 'Disabled');
     $('#option1').parent().removeClass('active');
     $('#option2').parent().removeClass('active');
     $('#option3').parent().removeClass('active');

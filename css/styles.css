@@ -621,3 +621,15 @@ input[type=number] {
 #checkoutNote div:last-child{
   font-size: 1.01em !important;
 }
+
+#recibo {
+  padding: .9em .9em .9em .9em !important;
+}
+
+#radioEnvio label{
+  font-size: .86em;
+}
+
+#radioEnvio {
+  margin-bottom: 1em;
+}
