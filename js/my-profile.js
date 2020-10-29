@@ -71,11 +71,9 @@ function uploadFile() {
 
 document.addEventListener("DOMContentLoaded", function (e) {
 
-    loadProfile();
+    checkLoggedUser();
 
-    if (JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
-        window.location.href = "login.html";
-    }
+    loadProfile();
 
     let form = document.getElementById('needs-validation');
 

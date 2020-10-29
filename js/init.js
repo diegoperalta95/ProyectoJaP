@@ -49,6 +49,12 @@ function createCartIfUserLogged(){
   }
 }
 
+function checkLoggedUser() {
+  if (JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
+      window.location.href = "index.html";
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function(e){ 
 
   $(window).scroll(function() {

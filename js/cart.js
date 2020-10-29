@@ -262,12 +262,6 @@ function emptyCart() {
     alert("No tiene productos en el carrito.");
 }
 
-function checkLoggedUser() {
-    if (JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
-        window.location.href = "login.html";
-    }
-}
-
 function verifyShippingInfo() {
     $('#shippingNumber, #shippingAddress, #shippingAddress2, #shippingCountries').on('change keyup focusout', function (e) {
         if ($('#shippingNumber')[0].checkValidity() && $('#shippingAddress')[0].checkValidity() && $('#shippingAddress2')[0].checkValidity()
