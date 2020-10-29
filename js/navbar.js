@@ -33,12 +33,12 @@ function showNavBar() {
           <li class="dropdown" id="dropdownUser" style="list-style:none;float:right;">
             <button id="menuUser" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </button>
-              <div id="profileMenu" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <ul id="profileMenu" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" id="register" href="index.html">Registrate!</a>
-                <a class="dropdown-item" id="profileLink" href="my-profile.html">Perfil</a>
+                <a class="dropdown-item" id="profileLink" href="my-profile.html">Mi perfil</a>
                 <a class="dropdown-item" id="cart" href="cart.html">Mi carrito</a>
-                <a class="dropdown-item" id="logoutLink" href="logout.html">Logout</a>
-              </div>
+                <a class="dropdown-item" id="logoutLink" href="logout.html" style="color:red">Cerrar sesión</a>
+              </ul>
           </li>
         </ul>
       </div>`
