@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     loadProfile();
 
     if (JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
-        window.location.href = "/home.html";
+        window.location.href = "login.html";
     }
 
     let form = document.getElementById('needs-validation');

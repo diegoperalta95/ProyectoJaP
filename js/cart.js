@@ -264,7 +264,7 @@ function emptyCart() {
 
 function checkLoggedUser() {
     if (JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
-        window.location.href = "/home.html";
+        window.location.href = "login.html";
     }
 }
 
