@@ -541,7 +541,6 @@ input[type=number] {
   grid-area: text;
   margin: 25px;
   margin-top: 15px !important;
-  margin-left: -1px; /*Solución temporal a un pixel que queda libre*/
 }
 
 .cCard-text p {
@@ -641,4 +640,18 @@ input[type=number] {
 
 #radioEnvio {
   margin-bottom: 1em;
+}
+
+/* Profile */
+
+#canvas {
+  width: 100px !important;
+  height: 100px !important;
+  border: 1px solid black;
+  background: url('../img/img_avatar4.png');
+  background-size: cover;
+}
+
+#cleaProfilePic {
+  cursor:pointer;
 }

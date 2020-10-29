@@ -41,14 +41,35 @@
     </nav>
   </header>
   <div class="container p-5 d-flex justify-content-center">
-    <div class="col-5 container-info pb-3 pt-3">
-      <form id="needs-validation" novalidate>
+    <div class="row container-info pb-5 pt-3 d-flex justify-content-around">
+      <div class="col-lg-5">
         <div class="form-group d-flex justify-content-center">
           <img src="img/img_avatar4.png" id="img-profile" class="img-profile" alt="">
         </div>
-        <div class="form-group d-flex justify-content-center">
-          <input type="text" class="form-control" placeholder="Url para el avatar." id="profilePic">
+        <div class="input-group">
+          <div class="form-group col-12 d-flex">
+            <input type="text" class="form-control col-11" placeholder="Url para el avatar." id="profilePic">
+            <div class="input-group-append col-1" id="cleaProfilePic" style="display:none;">
+              <span class="btn btn-danger"><span class="fa fa-times"></span></span>
+            </div>
+          </div>
         </div>
+        <div class="form-group d-flex justify-content-center flex-wrap">
+          <div class="row ml-1 text-center">
+            <h5> <b> También puede subir su propia imagen:</b></h5>
+            <div class="col-12 mb-2"></div>
+            <input type="file" id="fileInput">
+            <div class="col-12 mt-3"></div>
+            <small class="col-12" style="color:red">Si sube una imagen sobreescribirá el campo de arriba.</small>
+          </div>
+          <div class="d-flex flex-wrap justify-content-center mt-5">
+            <h4 class="col-12 text-center">Preview del avatar:</h4>
+            <canvas id="canvas"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <form id="needs-validation" novalidate>
         <div class="form-group">
           <label for="names">
             Nombres:</label>
@@ -67,7 +88,8 @@
           <label for="date">
             Fecha de nacimiento:</label>
           <input type="text" class="form-control date" id="date" placeholder="Inserte su fecha de nacimiento"
-            pattern="^(19[0-9][0-9]|20[0-4][0-9]|2050)[-/](0?[1-9]|1[0-2])[-/](0?[1-9]|[12][0-9]|3[01])$" autofocus />
+            pattern="^(19[0-9][0-9]|20[0-4][0-9]|2050)[-/](0?[1-9]|1[0-2])[-/](0?[1-9]|[12][0-9]|3[01])$" autofocus
+            required />
           <span class="invalid-feedback">Campo inválido. AAAA/MM/DD</span>
         </div>
         <div class="form-group">
@@ -81,11 +103,12 @@
           <label for="phoneNumber">
             Número de teléfono:</label>
           <input type="text" class="form-control" id="phoneNumber" placeholder="Ingrese su número de teléfono"
-            pattern="^[0-9]+" autofocus />
+            pattern="^[0-9]+" autofocus required />
           <span class="invalid-feedback">Campo inválido.</span>
         </div>
         <button type="submit" id="saveChanges" class="btn btn-dark col-12"> Guardar cambios </button>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
   <footer class="text-muted bg-light">
@@ -96,7 +119,7 @@
   </footer>
   <div class="alert fade alert-success" role="alert" id="alertResult">
     <span id="resultSpan"></span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <button type="button" id="alertDismiss" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
