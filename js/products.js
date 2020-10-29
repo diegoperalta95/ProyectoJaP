@@ -97,7 +97,7 @@ function showProductsList() {
                         <div class="cCard-image" style="background:url('${product.imgSrc}')"></div>
                         <div class="cCard-text">
                             <h5>${product.name}</h5>
-                            <p class="small">${product.description.length > 210 ? (product.description.slice(0, 210) + '...') : product.description}</p>
+                            <p class="small">${product.description.length > 100 ? (product.description.slice(0, 100) + '...') : product.description}</p>
                         </div>
                         <div class="cCard-stats">
                             <div class="stat">

@@ -422,7 +422,7 @@ input[type=number] {
   text-decoration: none;
   padding: 30px 30px 30px 30px;
   transition: outline 0.08s linear;
-  outline: solid 0px #FC5185;
+  outline: solid 0px #1fbef2;
   margin: 1% 1% 1% 1%;
   width: 100% !important;
   max-height: 300px !important;
@@ -436,7 +436,7 @@ input[type=number] {
 .cat-list-container a:hover{
   outline: 1px solid rgb(245, 245, 245);
   box-shadow: 2px 4px 3px 3px #c0c0c069;
-  outline: solid 3px #FC5185;
+  outline: solid 3px #1fbef2;
 }
 
 /* Productos relacionados en product info */
@@ -508,12 +508,15 @@ input[type=number] {
   text-decoration: none !important;
   display: grid;
   grid-template-columns: 300px;
-  grid-template-rows: 210px 210px 80px;
+  grid-template-rows: 180px 130px 50px;
   grid-template-areas: "image" "text" "stats";
   border-radius: 18px;
   background: white;
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+  outline: solid 0px #1fbef2;
+  box-shadow: 3px 5px 12px 0px rgba(0,0,0,.9);
   text-align: center;
+  transition: .3s ease !important;
+  padding-left: 1px;
 }
 
 .cCard-image {
@@ -530,8 +533,7 @@ input[type=number] {
 
 .cCard-image {
   grid-area: image !important;
-  border-top-left-radius: 15px !important;
-  border-top-right-radius: 15px !important;
+  margin-left: -1px; /*Solución temporal a un pixel que queda libre*/
   background-size: cover !important;
 }
 
@@ -539,6 +541,7 @@ input[type=number] {
   grid-area: text;
   margin: 25px;
   margin-top: 15px !important;
+  margin-left: -1px; /*Solución temporal a un pixel que queda libre*/
 }
 
 .cCard-text p {
@@ -570,14 +573,11 @@ input[type=number] {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  /*border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;*/
   background: #111111;
-}
-
-/* Solo una columna en categorias */
-.cCard-stats.category{
-  grid-template-columns: 1fr !important;
+  transition: 0.5s ease !important;
+  margin-left: -1px; /*Solución temporal a un pixel que queda libre*/
 }
 
 .cCard-stats .stat {
@@ -586,18 +586,27 @@ input[type=number] {
   justify-content: center;
   flex-direction: column;
   color: white;
-  padding:10px;
 }
 
 .cCard:hover {
-  transform: scale(1.15);
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+  transform: scale(1.11);
+  box-shadow: 3px 5px 12px 0px rgba(31,190,242,.9);
+  outline: solid 2px #1fbef2;
+}
+.cCard:hover .cCard-stats {
+  background: #1fbef2;
 }
 
 .cCard {
   transition: 0.5s ease;
   cursor: pointer;
   margin:30px;
+}
+
+/* Solo una columna en categorias */
+
+.cCard-stats.category{
+  grid-template-columns: 1fr !important;
 }
 
 
