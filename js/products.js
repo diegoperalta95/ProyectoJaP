@@ -83,7 +83,7 @@ function showProductsList() {
                                     <h4 class="mb-1">${product.name}</h4>
                                     <small>${product.soldCount} Vendidos</small>
                                 </div>
-                                <p class="mb-1">${product.description}</p>
+                                <p class="mb-1">${product.description.length > 100 ? (product.description.slice(0, 100) + '...') : product.description}</p>
                                 <br>
                                 <p> <b>Precio:  </b><span class="numberFormat">${product.cost}</span> ${product.currency}</p>
                             </div>
