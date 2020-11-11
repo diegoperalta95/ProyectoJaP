@@ -8,6 +8,7 @@ var prodSubTotal = [];
 var totalProductsVal = 0;
 var shippingVal = 0;
 var cardType = null;
+var cartBuyInfo = [];
 
 function showCart() {
 
@@ -259,7 +260,7 @@ function emptyCart() {
 
     $('#shippingBox').css({ 'display': 'none' });
 
-    alert("No tiene productos en el carrito.");
+    $('#noItems').addClass('show');
 }
 
 function verifyShippingInfo() {

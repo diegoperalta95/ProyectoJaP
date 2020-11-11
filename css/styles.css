@@ -572,8 +572,6 @@ input[type=number] {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-  /*border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;*/
   background: #111111;
   transition: 0.5s ease !important;
   margin-left: -1px; /*Solución temporal a un pixel que queda libre*/
@@ -608,7 +606,6 @@ input[type=number] {
   grid-template-columns: 1fr !important;
 }
 
-
 /* Carrito zona de recibo */
 
 #checkoutNote {
@@ -624,7 +621,6 @@ input[type=number] {
   justify-content: space-between !important;
   align-items: center !important;
 }
-
 
 #checkoutNote div:last-child{
   font-size: 1.01em !important;
@@ -645,9 +641,9 @@ input[type=number] {
 /* Profile */
 
 #canvas {
+  border-radius: 50%;
   width: 100px !important;
   height: 100px !important;
-  border: 1px solid black;
   background: url('../img/img_avatar4.png');
   background-size: cover;
 }
