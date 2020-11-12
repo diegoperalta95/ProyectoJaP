@@ -166,6 +166,9 @@ a.custom-card img {
   color: orange;
 }
 
+
+/* Navbar */
+
 .navbar {
   height: auto;
 }
@@ -224,129 +227,6 @@ a.custom-card img {
   border-color:#111111;
 }
 
-/* Comentarios en product-info.html*/
-
-.profile-thumbnail{
-  border-radius:50%;
-  width: 60px !important;
-  height: 60px !important;
-}
-
-/*Sistema de puntuación*/
-
-.rating{
-  direction: rtl;
-  display: inline-block;
-}
-
-.rating input[type=radio]{
-  display: none;
-}
-
-.rating label {
-  cursor: pointer;
-}
-
-.rating label:hover,
-.rating label:hover~label,
-.rating input[type=radio]:checked~label {
-  color: #ffbf00;
-}
-
-/* Tabla */
-
-td > img {
-  width: 70px;
-  height: 70px;
-  margin: 1% 1% 1% 1% !important;
-  padding: 1% 1% 1% 1% !important;
-}
-
-#cart table * {
-  vertical-align: middle;
-}
-
-#cart-table tbody{
-  background-color: white !important;
-}
-
-#cart-table thead th {
-  color: #3d3d3d;
-}
-
-#cart-table tfoot th:first-child {
-  text-align: right;
-}
-
-#cart-table tfoot th:last-child {
-  text-align: center;
-}
-
-#cart-table img {
-  height: 4rem;
-  width: 4.75rem;
-}
-
-#cart-table tbody td:nth-child(4) input,button{
-  background: transparent;
-  border: none;
-}
-
-.cant {
-  width: 30px !important;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none !important;
-  margin: 0 !important;
-  text-align:center !important;
-}
-
-input[type=number] {
-  -moz-appearance: textfield !important;
-  text-align:center !important;
-}
-
-
-#cart-table > thead > tr > th {
-  width:200px;
-  max-width:200px;
-}
-
-#cart-table > th, td {
-  border-top: 1px solid #ddd;
-}
-
-/* Recibo */
-
-#recibo {
-  outline: 1px solid rgb(206, 206, 206);
-  padding: 10px 10px 10px 10px;
-  background-color: white !important;
-}
-
-.btn-shipping {
-  background:gray;
-}
-
-.crossOut {
-  text-decoration: line-through;
-}
-
-
-/* Modal */
-
-.paymentIcon{
-  transition: all 200ms ease;
-  opacity: 0.3;
-}
-
-.paymentIcon.active {
-  opacity: 1;
-  transform: scale(1.1,1.1);
-}
-
 /* Botón para volver arriba */
 
 #top{
@@ -385,35 +265,6 @@ input[type=number] {
   background-color: #555;
 }
 
-/* Carrousel */
-
-.carousel .carousel-cell, img {
-  width: 600px;
-  height: 400px;
-} 
-
-/* Página de info de producto */
-
-#productButtons{
-  position:absolute;
-  bottom: 0px;
-}
-
-@media (max-width: 992px) {
-  #productButtons{
-    position:relative;
-    bottom: 0px;
-    margin-left: 0%;
-  }
-}
-
-.cartButton {
-  max-height: 50px;
-  max-width: 160px;
-  padding-left: 0px;
-  padding-right: 0px;
-}
-
 /* Container de listados */ 
 
 .cat-list-container a{
@@ -437,28 +288,6 @@ input[type=number] {
   outline: 1px solid rgb(245, 245, 245);
   box-shadow: 2px 4px 3px 3px #c0c0c069;
   outline: solid 3px #1fbef2;
-}
-
-/* Productos relacionados en product info */
-
-.related,.relatedText {
-  min-height:150px;
-  transition: .5s ease-in-out;
-  padding: 0px 0px 0px 0px;
-  color:white !important;
-}
-
-.relatedText {
-  opacity: 0;
-}
-
-.relatedText h4{
-  margin-top:10%;
-}
-
-.relatedText:hover {
-  opacity: 1;
-  background: rgba(0,0,0,0.7);
 }
 
 /* Container de productos */
@@ -486,14 +315,6 @@ input[type=number] {
 
 .input-group.is-invalid .invalid-feedback{
   display: block;
-}
-
-/* Perfil */
-
-.img-profile {
-  width: 100px;
-  height: 100px;
-  border-radius: 50% 50% 50% 50%;
 }
 
 /* Listados modo grid */
@@ -606,48 +427,8 @@ input[type=number] {
   grid-template-columns: 1fr !important;
 }
 
-/* Carrito zona de recibo */
+/* Alerts de bootstrap */
 
-#checkoutNote {
-  padding: .9em .9em .8em .6em;
-}
-
-#checkoutNote div{
-  padding-bottom: .5em;
-  padding-top: .5em;
-  border-bottom: 1px solid lightgray;
-  font-size: .9em;
-  display: flex;
-  justify-content: space-between !important;
-  align-items: center !important;
-}
-
-#checkoutNote div:last-child{
-  font-size: 1.01em !important;
-}
-
-#recibo {
-  padding: .9em .9em .9em .9em !important;
-}
-
-#radioEnvio label{
-  font-size: .86em;
-}
-
-#radioEnvio {
-  margin-bottom: 1em;
-}
-
-/* Profile */
-
-#canvas {
-  border-radius: 50%;
-  width: 100px !important;
-  height: 100px !important;
-  background: url('../img/img_avatar4.png');
-  background-size: cover;
-}
-
-#cleaProfilePic {
-  cursor:pointer;
+.alert.show {
+  z-index: 9999 !important;
 }

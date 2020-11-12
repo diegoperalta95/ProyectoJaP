@@ -40,7 +40,6 @@ function showProduct() {
         <div style="align-items:center;float:left" class="d-flex justify-content-around text-center col-12 pl-0 pr-0">
         <h5 class="mt-2"><b>${ProductArray.cost} ${ProductArray.currency}</b> - ${ProductArray.soldCount} Ya vendidos!</h5>
         <button id="addToCart" onclick="addToCart();" class=" cartButton btn btn-lg btn-dark btn-block">Agregar al <i class="fa fa-shopping-cart"></i> </button>
-        <button id="alreadyInCart" onclick="window.location.href='cart.html'" style="display:none" class="cartButton btn btn-lg btn-primary btn-block">En el <i class="fa fa-shopping-cart"></i> </button>
         </div>`
     );
 
@@ -63,8 +62,9 @@ function checkIfArticleExistsInCart() {
     let cart = JSON.parse(localStorage.getItem('Cart'));
     cart['Cars'].forEach(function (e) {
         if (e.id == CarId) {
-            $('#addToCart').css({ 'display': 'none' });
-            $('#alreadyInCart').css({ 'display': 'block' });
+            document.getElementById('addToCart').innerHTML = `En el <i class="fa fa-shopping-cart"></i>`;
+            document.getElementById('addToCart').onclick = function() {window.location.href='cart.html'};
+            $('#addToCart').removeClass('btn-dark').addClass('btn-primary');        
         }
     });
 }
@@ -210,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
             checkIfArticleExistsInCart()
             if (JSON.parse(localStorage.getItem('Profile')).name == null || JSON.parse(localStorage.getItem('Profile')).name == undefined || JSON.parse(localStorage.getItem('Profile')).name == "Invitado") {
                 $('#addToCart').css({ 'display': 'none' });
-                $('#alreadyInCart').css({ 'display': 'none' });
             };
         };
     });
@@ -232,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
             if (localStorage.getItem("Profile")) {
                 let now = new Date()
-                let dateTime = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+                let dateTime = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
 
                 if (!$("#rating :radio:checked")[0]) {

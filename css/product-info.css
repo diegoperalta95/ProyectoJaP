@@ -1,0 +1,81 @@
+/* Carrousel */
+
+.carousel .carousel-cell, img {
+    width: 600px;
+    height: 400px;
+  } 
+  
+  /* Página de info de producto */
+  
+  #productButtons{
+    position:absolute;
+    bottom: 0px;
+  }
+  
+  @media (max-width: 992px) {
+    #productButtons{
+      position:relative;
+      bottom: 0px;
+      margin-left: 0%;
+    }
+  }
+  
+  .cartButton {
+    max-height: 50px;
+    max-width: 160px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  /* Productos relacionados */
+
+.related,.relatedText {
+    min-height:150px;
+    transition: .5s ease-in-out;
+    padding: 0px 0px 0px 0px;
+    color:white !important;
+  }
+  
+  .relatedText {
+    opacity: 0;
+  }
+  
+  .relatedText h4{
+    margin-top:10%;
+  }
+  
+  .relatedText:hover {
+    opacity: 1;
+    background: rgba(0,0,0,0.7);
+  }
+
+
+  /* Comentarios */
+
+.profile-thumbnail{
+    border-radius:50%;
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  /*Sistema de puntuación*/
+  
+  .rating{
+    direction: rtl;
+    display: inline-block;
+  }
+  
+  .rating input[type=radio]{
+    display: none;
+  }
+  
+  .rating label {
+    cursor: pointer;
+  }
+  
+  .rating label:hover,
+  .rating label:hover~label,
+  .rating input[type=radio]:checked~label {
+    color: #ffbf00;
+  }
+  

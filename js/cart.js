@@ -8,11 +8,14 @@ var prodSubTotal = [];
 var totalProductsVal = 0;
 var shippingVal = 0;
 var cardType = null;
-var cartBuyInfo = [];
+var cartQuantityItems = 0;
+var localSV = false;
 
 function showCart() {
 
     $('#cart-table-list').empty();
+
+    cartQuantityItems = 0;
 
     for (let i = 0; i < productsArray.length; i++) {
         let product = productsArray[i];
@@ -33,21 +36,23 @@ function showCart() {
 
         prodSubTotal[i] = parseFloat((product.cost * product.count).toFixed(2));
 
+        cartQuantityItems++;
+
         content = `
         <tr class="text-center">
             <td>
                 <img class="img-fluid" src="${product.images[0]}" alt="${product.name}">
             </td>
-            <td>
+            <td id="name${i}">
                 ${product.name}
             </td>
-            <td>
+            <td id="cost${i}">
                 ${product.currency} ${product.cost} 
             </td>
             <td>
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown();subTotal(${i},${product.cost});">-</button>
+                <button class="addOrRemove" onclick="this.parentNode.querySelector('input[type=number]').stepDown();subTotal(${i},${product.cost});">-</button>
                 <input id="quantityCart${i}" class="quantity cant" min="1" max="999" name="quantity" onchange="subTotal(${i},${product.cost});" value="${product.count}" type="number">
-                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp();subTotal(${i},${product.cost});">+</button>
+                <button class="addOrRemove" onclick="this.parentNode.querySelector('input[type=number]').stepUp();subTotal(${i},${product.cost});">+</button>
             </td>
             <td id="summary${i}">
                 ${currency} ${formatNumber(prodSubTotal[i])}
@@ -123,10 +128,9 @@ function totalProducts() {
 function shipping() {
     let porcen = $("input[name='shipping']:checked").val();
 
-    $('#shipping').empty();
+    $('#shipping, #shippingInfo').empty();
     $('#shipping').append("El costo por el envío será de " + porcen + "% y no se contará sobre el cupón.");
 
-    $('#shippingInfo').empty();
     let shippingInfo = "";
     if (porcen == 5) {
         shippingInfo = "12 y 15 días."
@@ -173,13 +177,9 @@ function discount() {
 }
 
 function validDiscount(num) {
-    $('#discount-code').removeClass('is-invalid');
-    $('#discount-code').addClass('is-valid');
-    $('#discount-code').attr('disabled', 'disabled');
-    $("#totalProducts").addClass('crossOut');
-    $("#currencyTotalProducts").addClass('crossOut');
-    $('#currencyDiscountTotalProducts').css({ 'color': 'green' });
-    $('#discountTotalProducts').css({ 'color': 'green' });
+    $('#discount-code').removeClass('is-invalid').addClass('is-valid').attr('disabled', 'disabled');
+    $("#totalProducts, #currencyTotalProducts").addClass('crossOut');
+    $('#currencyDiscountTotalProducts, #discountTotalProducts').css({ 'color': 'green' });
 
     document.getElementById("discount").innerText = num + "%!";
 
@@ -206,7 +206,7 @@ function loadProducts() {
     let cart = JSON.parse(localStorage.getItem("Cart"));
 
     if (cart['Cars'].length == 0) {
-        emptyCart();
+        displayEmptyCart();
     }
 
     var productArray = cart['Cars'].length;
@@ -226,37 +226,22 @@ function loadProducts() {
     });
 }
 
-function emptyCart() {
-    $('#cart-table-list').empty();
-    $('#totalProducts').empty();
-    $('#total').empty();
-    $('#shippingCost').empty();
-    $('#currencyTotalProducts').empty();
-    $('#currencyShipping').empty();
-    $('#currencyTotal').empty();
+function displayEmptyCart() {
+    $('#cart-table-list, #totalProducts, #total, #shippingCost, #currencyTotalProducts, #currencyShipping, #currencyTotal').empty();
 
     $('#radioEnvio').attr('Disabled', 'Disabled');
-    $('#option1').parent().removeClass('active');
-    $('#option2').parent().removeClass('active');
-    $('#option3').parent().removeClass('active');
+    $('#option1, #option2, #option3').parent().removeClass('active');
 
     $('#discount-code').val("");
-    $('#discount').empty();
-    $('#discountTotalProducts').empty();
-    $('#currencyDiscountTotalProducts').empty();
+    $('#discount, #discountTotalProducts, #currencyDiscountTotalProducts').empty();
 
-    $('#discount-code').attr('Disabled', 'Disabled');
-    $('#discount-code').removeClass('is-valid');
-    $('#discount-code').removeClass('is-invalid');
+    $('#discount-code, #confirmButton').attr('Disabled', 'Disabled');
+    $('#discount-code').removeClass('is-valid is-invalid');
 
-    $('#totalModal').empty();
+    $('#totalModal, #shipping, #shippingInfo').empty();
 
-    $('#shipping').empty();
-    $('#shippingInfo').empty();
     $('#shipping').append("Debe tener algo en el carrito para poder seleccionar el tipo de envío.");
     $('#shipping').css({ 'color': 'red' })
-
-    $('#confirmButton').attr('Disabled', 'Disabled');
 
     $('#shippingBox').css({ 'display': 'none' });
 
@@ -290,32 +275,28 @@ function detectedSelectedCard() {
         creditCard: true,
         delimiter: '-',
         onCreditCardTypeChanged: function (type) {
+            let creditCards = ".fa-cc-visa,.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover"
+            $(creditCards).removeClass('active');
             if (type === 'visa') {
                 $('.fa-cc-visa').addClass('active');
-                $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
                 cardType = "visa";
             } else if (type === 'mastercard') {
                 $('.fa-cc-mastercard').addClass('active');
-                $('.fa-cc-visa,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
                 cardType = "mastercard";
             } else if (type === 'amex') {
                 $('.fa-cc-amex').addClass('active');
-                $('.fa-cc-mastercard,.fa-cc-visa,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
                 cardType = "amex";
             } else if (type === 'diners') {
                 $('.fa-cc-diners-club').addClass('active');
-                $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-visa,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
                 cardType = "diners";
             } else if (type === 'jcb') {
                 $('.fa-cc-jcb').addClass('active');
-                $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-visa,.fa-cc-discover').removeClass('active');
                 cardType = "jcb";
             } else if (type === 'discover') {
                 $('.fa-cc-discover').addClass('active');
-                $('.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-visa').removeClass('active');
                 cardType = "discover";
             } else {
-                $('.fa-cc-visa,.fa-cc-mastercard,.fa-cc-amex,.fa-cc-diners-club,.fa-cc-jcb,.fa-cc-discover').removeClass('active');
+                $(creditCards).removeClass('active');
                 cardType = null;
             };
         }
@@ -337,7 +318,7 @@ function checkCardPaymentMethodAvailable() {
 function paymentMethodValidation() {
     let formCreditCard = document.getElementById('needs-validation');
 
-    $('#cardNumber').on('change keyup',function(e){
+    $('#cardNumber').on('change keyup', function (e) {
         checkCardPaymentMethodAvailable();
     });
 
@@ -345,6 +326,12 @@ function paymentMethodValidation() {
         if (formCreditCard.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+        } else if (localSV) {
+            event.preventDefault();
+            event.stopPropagation();
+            getDataFromCart("card");
+        } else {
+            createCart(true);
         };
         formCreditCard.classList.add('was-validated');
     });
@@ -355,6 +342,12 @@ function paymentMethodValidation() {
         if (formAcc.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+        } else if (localSV) {
+            event.preventDefault();
+            event.stopPropagation();
+            getDataFromCart("acc");
+        } else {
+            createCart(true);
         };
         formAcc.classList.add('was-validated');
     });
@@ -365,7 +358,13 @@ function paymentMethodValidation() {
         if (formPaypal.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-        }
+        } else if (localSV) {
+            event.preventDefault();
+            event.stopPropagation();
+            getDataFromCart("paypal");
+        } else {
+            createCart(true);
+        };
         formPaypal.classList.add('was-validated');
     });
 }
@@ -400,6 +399,90 @@ function detectDiscountCodeInput() {
             discount();
         }
     });
+}
+
+function getDataFromCart(type) {
+
+    let Orden = {
+        Productos: [],
+        Envio: {},
+        Pago: {}
+    };
+
+    for (let i = 0; i < cartQuantityItems; i++) {
+        let Auto = {};
+        Auto['Nombre'] = document.getElementById('name' + i).innerText;
+        Auto['Costo'] = document.getElementById('cost' + i).innerText;
+        Auto['Cantidad'] = document.getElementById('quantityCart' + i).value;
+        Auto['Total'] = document.getElementById('summary' + i).innerText;
+        Orden.Productos.push(Auto);
+    };
+
+    if ($("input[name='shipping']:checked").val() == 5) {
+        Orden.Envio['Tipo de envío'] = "Estándar";
+        Orden.Envio['Porcentaje de cobro'] = 5;
+    } else if ($("input[name='shipping']:checked").val() == 7) {
+        Orden.Envio['Tipo de envío'] = "Express";
+        Orden.Envio['Porcentaje de cobro'] = 7;
+    } else {
+        Orden.Envio['Tipo de envío'] = "Premium";
+        Orden.Envio['Porcentaje de cobro'] = 15;
+    }
+
+    Orden.Envio['País'] = $('#shippingCountries').val();
+    Orden.Envio['Dirección'] = $('#shippingAddress').val();
+    Orden.Envio['Dirección segunda línea'] = $('#shippingAddress2').val();
+    Orden.Envio['Número de puerta'] = $('#shippingNumber').val();
+
+    if (statusDiscount) {
+        Orden.Envio['Código de descuento'] = $('#discount-code').val();
+    } else {
+        Orden.Envio['Código de descuento'] = "Sin código";
+    };
+
+    Orden.Envio['Total'] = $('#total').html();
+
+    if (type == "paypal") {
+
+        Orden.Pago['Tipo de pago'] = "Paypal";
+        Orden.Pago['Email de pago'] = $('#email').val();
+
+    } else if (type == "acc") {
+
+        Orden.Pago['Tipo de pago'] = "Cuenta bancaria";
+        Orden.Pago['Banco'] = $('#bankName :selected').val();
+        Orden.Pago['Número de cuenta'] = $('#accNumber').val();
+
+    } else {
+
+        Orden.Pago['Tipo de pago'] = "Tarjeta de crédito";
+        Orden.Pago['Número de tarjeta'] = $('#cardNumber').val();
+        Orden.Pago['Fecha de vencimiento'] = $('#expiryMonth').val();
+        Orden.Pago['Código de seguridad'] = $('#code').val();
+        Orden.Pago['Nombre'] = $('#name').val();
+        Orden.Pago['Apellidos'] = $('#surnames').val();
+        Orden.Pago['Dirección de facturación'] = $('#address').val();
+        Orden.Pago['Dirección de facturación 2da línea'] = $('#address2').val();
+        Orden.Pago['País'] = $('#countries :selected').val();
+        Orden.Pago['Teléfono'] = $('#phoneNumber').val();
+        Orden.Pago['Código postal'] = $('#postalCode').val();
+        Orden.Pago['Localidad'] = $('#local').val();
+
+    };
+
+    savePayout(Orden);
+}
+
+function savePayout(Orden) {
+
+    postJSONData(CART_CONFIRM_ORDER, Orden).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            createCart(true);
+            alert(resultObj.data.mensaje);
+            location.reload();
+        };
+    });
+
 }
 
 document.addEventListener("DOMContentLoaded", function (e) {
