@@ -1,4 +1,4 @@
-
+/*
 const CATEGORIES_URL = "https://japdevdep.github.io/ecommerce-api/category/all.json";
 const PUBLISH_PRODUCT_URL = "https://japdevdep.github.io/ecommerce-api/product/publish.json";
 const CATEGORY_INFO_URL = "https://japdevdep.github.io/ecommerce-api/category/1234.json";
@@ -10,8 +10,8 @@ const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 const COUNTRIES = "https://diegoperalta95.github.io/ecommerce-api/countries/all.json";
 const COUNTRY = "https://restcountries.eu/rest/v2/name/";
 const PROFILES = "https://diegoperalta95.github.io/ecommerce-api/profile/all.json";
+*/
 
-/*
 const CATEGORIES_URL = "http://localhost:3000/categories/all";
 const CATEGORY_INFO_URL = "http://localhost:3000/categories/1";
 const PRODUCTS_URL = "http://localhost:3000/products/cars/all";
@@ -23,7 +23,7 @@ const PRODUCT_INFO_URL = "https://diegoperalta95.github.io/ecommerce-api/product
 const PUBLISH_PRODUCT_URL = "http://localhost:3000/products/publish";
 const CART_INFO_URL = "http://localhost:3000/cart/info";
 const CART_BUY_URL = "http://localhost:3000/cart/buy.json";
-*/
+
 
 const CART_CONFIRM_ORDER = "http://localhost:3000/guardar-carrito";
 

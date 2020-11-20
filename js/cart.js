@@ -11,6 +11,36 @@ var cardType = null;
 var cartQuantityItems = 0;
 var localSV = false;
 
+function formatNumber(num) {
+    return new Intl.NumberFormat(format).format(num);
+}
+
+function loadProducts() {
+
+    productsArray = [];
+    let cart = JSON.parse(localStorage.getItem("Cart"));
+
+    if (cart['Cars'].length == 0) {
+        displayEmptyCart();
+    }
+
+    var productArray = cart['Cars'].length;
+    var productArrayCheck = 0;
+
+    cart['Cars'].forEach(element => {
+        getJSONData(PRODUCT_INFO_URL + element.id + ".json").then(function (resultObj) {
+            if (resultObj.status === "ok") {
+                productsArray.push(resultObj.data);
+                productsArray[productsArray.length - 1]['count'] = element.count;
+                productArrayCheck++;
+                if (productArray == productArrayCheck) {
+                    showCart();
+                };
+            }
+        });
+    });
+}
+
 function showCart() {
 
     $('#cart-table-list').empty();
@@ -75,20 +105,6 @@ function showCart() {
     if (statusDiscount) {
         applyDiscount();
     }
-}
-
-function deleteProduct(i) {
-    if (confirm("¿Está seguro que desea eliminar el item?")) {
-        let cart = JSON.parse(localStorage.getItem("Cart"));
-        cart['Cars'].splice(i, 1);
-        localStorage.setItem('Cart', JSON.stringify(cart));
-        loadProducts();
-    }
-
-}
-
-function formatNumber(num) {
-    return new Intl.NumberFormat(format).format(num);
 }
 
 function subTotal(i, cost) {
@@ -166,6 +182,16 @@ function total() {
 
 }
 
+function deleteProduct(i) {
+    if (confirm("¿Está seguro que desea eliminar el item?")) {
+        let cart = JSON.parse(localStorage.getItem("Cart"));
+        cart['Cars'].splice(i, 1);
+        localStorage.setItem('Cart', JSON.stringify(cart));
+        loadProducts();
+    }
+
+}
+
 function discount() {
     let code = $('#discount-code').val();
     if (code != "jaimito") {
@@ -197,32 +223,6 @@ function applyDiscount() {
     document.getElementById('discountTotalProducts').innerText = formatNumber(prodTotal);
     document.getElementById('currencyDiscountTotalProducts').innerText = currency;
     total();
-}
-
-function loadProducts() {
-
-    productsArray = [];
-    let cart = JSON.parse(localStorage.getItem("Cart"));
-
-    if (cart['Cars'].length == 0) {
-        displayEmptyCart();
-    }
-
-    var productArray = cart['Cars'].length;
-    var productArrayCheck = 0;
-
-    cart['Cars'].forEach(element => {
-        getJSONData(PRODUCT_INFO_URL + element.id + ".json").then(function (resultObj) {
-            if (resultObj.status === "ok") {
-                productsArray.push(resultObj.data);
-                productsArray[productsArray.length - 1]['count'] = element.count;
-                productArrayCheck++;
-                if (productArray == productArrayCheck) {
-                    showCart();
-                };
-            }
-        });
-    });
 }
 
 function displayEmptyCart() {
