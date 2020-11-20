@@ -132,13 +132,7 @@ function sortAndShowProducts(sortCriteria, productsArray) {
     showProductsList();
 }
 
-document.addEventListener("DOMContentLoaded", function (e) {
-    getJSONData(PRODUCTS_URL).then(function (resultObj) {
-        if (resultObj.status === "ok") {
-            sortAndShowProducts(ORDER_ASC_BY_NAME, resultObj.data);
-        }
-    });
-
+function filterListeners(){
     document.getElementById("sortAsc").addEventListener("click", function () {
         sortAndShowProducts(ORDER_ASC_BY_NAME);
     });
@@ -170,21 +164,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         showProductsList();
     });
-    document.getElementById("searchBar").addEventListener("input", function () {
-        wordFilter = document.getElementById("searchBar").value.toUpperCase();
-
-        showProductsList();
-    });
-
-    $('#sortGrid').on('click',function(e){
-        type = "grid";
-        showProductsList();
-    });
-
-    $('#sortList').on('click',function(e){
-        type = "list";
-        showProductsList();
-    });
 
     $('#rangeFilterCountMin, #rangeFilterCountMax').on('keyup', function (e) {
         minCount = document.getElementById("rangeFilterCountMin").value;
@@ -212,6 +191,38 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         showProductsList();
     });
+}
+
+function listType(){
+    $('#sortGrid').on('click',function(e){
+        type = "grid";
+        showProductsList();
+    });
+
+    $('#sortList').on('click',function(e){
+        type = "list";
+        showProductsList();
+    });
+}
+
+function searchBarListener(){
+    document.getElementById("searchBar").addEventListener("input", function () {
+        wordFilter = document.getElementById("searchBar").value.toUpperCase();
+        showProductsList();
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function (e) {
+    getJSONData(PRODUCTS_URL).then(function (resultObj) {
+        if (resultObj.status === "ok") {
+            sortAndShowProducts(ORDER_ASC_BY_NAME, resultObj.data);
+        }
+    });
+
+    filterListeners();
+    listType();
+    searchBarListener();
+
 
 });
 

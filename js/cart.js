@@ -124,7 +124,6 @@ function totalProducts() {
     shipping();
 }
 
-
 function shipping() {
     let porcen = $("input[name='shipping']:checked").val();
 
