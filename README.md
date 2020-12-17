@@ -1,5 +1,5 @@
 # ProyectoJaP
-Repo del proyecto de Jóvenes a Programar, ya completo.
+Repo del proyecto de Jóvenes a Programar 2020, ya completo.
 
 Objetivo: Realizar diferentes entregas en base a una web ya dada, cumpliendo así, diferentes requisitos para cada entrega.
 
